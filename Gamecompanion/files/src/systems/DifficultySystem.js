@@ -1,0 +1,2 @@
+/** Build 19 difficulty presets scale enemies and rewards from zone data. */
+export class DifficultySystem{constructor({difficulties=[]}={}){this.byId=new Map(difficulties.map(x=>[x.id,x]));}get(id){return this.byId.get(id)??null;}scaleEnemy(enemy,id){const d=this.get(id)??this.get('calm')??{statMultiplier:1};const m=d.statMultiplier;return {...enemy,hp:Math.ceil(enemy.hp*m),maxHp:Math.ceil((enemy.maxHp??enemy.hp)*m),attackDamage:enemy.attackDamage*m};}}

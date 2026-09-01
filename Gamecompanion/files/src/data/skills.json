@@ -1,0 +1,34 @@
+{
+  "comment": "Spell and ability definitions. Organized by magic school (LN canon).",
+  "schemaVersion": "1.0",
+  "magicSchools": [
+    { "id": "water", "name": "Water Magic", "color": "#4a9af0", "description": "Healing, ice, and pressure water attacks." },
+    { "id": "earth", "name": "Earth Magic", "color": "#8a6a3a", "description": "Defense, terrain manipulation, and stone projectiles." },
+    { "id": "fire", "name": "Fire Magic", "color": "#d44a2a", "description": "Damage over time, explosions, heat." },
+    { "id": "wind", "name": "Wind Magic", "color": "#6ac8c0", "description": "Speed, cutting, barriers, and flight." },
+    { "id": "healing", "name": "Healing Magic", "color": "#4ad44a", "description": "HP restoration, poison cure, detoxification." },
+    { "id": "barrier", "name": "Barrier Magic", "color": "#d4a034", "description": "Protective wards, sealing, deflection." },
+    { "id": "dark", "name": "Demon Magic", "color": "#5a2a8a", "description": "Corrupted mana, curses, demonic pacts." }
+  ],
+  "skillRanks": [
+    { "id": "beginner", "name": "Beginner", "levelRequirement": 1, "manaCostMultiplier": 1.0, "damageMultiplier": 1.0 },
+    { "id": "intermediate", "name": "Intermediate", "levelRequirement": 5, "manaCostMultiplier": 1.5, "damageMultiplier": 1.5 },
+    { "id": "advanced", "name": "Advanced", "levelRequirement": 15, "manaCostMultiplier": 2.0, "damageMultiplier": 2.5 },
+    { "id": "saint", "name": "Saint", "levelRequirement": 30, "manaCostMultiplier": 3.0, "damageMultiplier": 4.0 },
+    { "id": "king", "name": "King", "levelRequirement": 50, "manaCostMultiplier": 5.0, "damageMultiplier": 6.0 }
+  ],
+  "skills": [
+    { "id": "water_ball", "name": "Water Ball", "school": "water", "rank": "beginner", "type": "projectile", "targeting": "single", "cooldown": 1000 },
+    { "id": "stone_bullet", "name": "Stone Bullet", "school": "earth", "rank": "beginner", "type": "projectile", "targeting": "single", "cooldown": 800 },
+    { "id": "wind_cutter", "name": "Wind Cutter", "school": "wind", "rank": "beginner", "type": "projectile", "targeting": "single", "cooldown": 1200 },
+    { "id": "fireball", "name": "Fireball", "school": "fire", "rank": "intermediate", "type": "aoe", "targeting": "area", "cooldown": 2000 },
+    { "id": "ice_shard", "name": "Ice Shard", "school": "water", "rank": "intermediate", "type": "projectile", "targeting": "single", "cooldown": 1500 },
+    { "id": "heal", "name": "Heal", "school": "healing", "rank": "beginner", "type": "support", "targeting": "ally", "cooldown": 3000 },
+    { "id": "barrier", "name": "Barrier", "school": "barrier", "rank": "intermediate", "type": "support", "targeting": "self", "cooldown": 5000 },
+    { "id": "quagmire", "name": "Quagmire", "school": "water", "rank": "advanced", "type": "aoe", "targeting": "area", "cooldown": 5000, "note": "Water+Earth composite — slows and damages" },
+    { "id": "longsword_of_light", "name": "Longsword of Light", "school": "swordsmanship", "rank": "king", "type": "melee", "targeting": "single", "cooldown": 4000, "note": "Sword God Style — instant unavoidable strike" },
+    { "id": "water_storm", "name": "Water Storm", "school": "water", "rank": "saint", "type": "aoe", "targeting": "area", "cooldown": 6000 },
+    { "id": "disturb_magic", "name": "Disturb Magic", "school": "dark", "rank": "advanced", "type": "support", "targeting": "enemy", "cooldown": 8000, "note": "Disrupts enemy spellcasting" },
+    { "id": "demon_eye", "name": "Demon Eye of Clairvoyance", "school": "dark", "rank": "king", "type": "passive", "note": "Grants foresight — increased dodge and accuracy" }
+  ]
+}

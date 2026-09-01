@@ -1,0 +1,16 @@
+{
+  "comment": "Aether Echoes — lore collectibles found throughout the world.",
+  "schemaVersion": "1.0",
+  "echoes": [
+    { "id": "echo_001", "name": "The Creator's Last World", "zone": "fittoa", "chapter": 2, "text": "The Creator God, on His deathbed, wove one final world. But it was unbalanced. So He created five more, joining them like faces of a cube.", "sprite": null },
+    { "id": "echo_002", "name": "The Dragon-God War", "zone": "fittoa", "chapter": 5, "text": "The First Dragon God waged war across all worlds. God after God fell. Only the Human God survived, gathering refugees to a single world.", "sprite": null },
+    { "id": "echo_003", "name": "The Birth of Orsted", "zone": "demon", "chapter": 10, "text": "Orsted was born of the Dragon God and the Human God's daughter. A demi-god. Destined to fight a war that would never end.", "sprite": null },
+    { "id": "echo_004", "name": "Laplace's Rebellion", "zone": "begaritt", "chapter": 15, "text": "Laplace was once a hero. But something twisted him. He became the Demon God, and the world burned.", "sprite": null },
+    { "id": "echo_005", "name": "The Superd Genocide", "zone": "demon", "chapter": 9, "text": "After Laplace fell, his people were hunted. The Superd were nearly wiped out. Ruijerd carries the weight of a genocide he did not cause.", "sprite": null },
+    { "id": "echo_006", "name": "The Founding of Ranoa", "zone": "ranoa", "chapter": 19, "text": "The Ranoa Magic University was built on the ruins of an ancient mage tower. Its foundations contain spells long forgotten.", "sprite": null },
+    { "id": "echo_007", "name": "The Lost Prince", "zone": "ranoa", "chapter": 20, "text": "Zanoba was the eighth prince of Shirone. Far from succession, he found purpose not in crowns but in creation.", "sprite": null },
+    { "id": "echo_008", "name": "The Greyrat Lineage", "zone": "asura", "chapter": 33, "text": "The Greyrat family once served the Asuran kings directly. Their loyalty was rewarded with land. Their stubbornness, with exile.", "sprite": null },
+    { "id": "echo_009", "name": "The First Magic Armor", "zone": "ranoa", "chapter": 30, "text": "Rudeus and Zanoba's collaboration was unprecedented. A mage who could not fight in close quarters built a suit of armor that let him stand among kings.", "sprite": null },
+    { "id": "echo_010", "name": "Hitogami's Prison", "zone": "asura", "chapter": 38, "text": "Hitogami was sealed in the Void World between realities. He cannot touch the physical world. But he can whisper. And people listen.", "sprite": null }
+  ]
+}

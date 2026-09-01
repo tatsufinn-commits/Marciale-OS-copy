@@ -1,0 +1,54 @@
+{
+  "comment": "Monster definitions organized by continent. Data-driven — add new monsters without code changes.",
+  "schemaVersion": "1.0",
+  "enemies": [
+    { "id": "slime", "name": "Slime", "hp": 20, "attackDamage": 5, "attackSpeed": 0.4, "armor": 0, "xpReward": 5, "goldReward": 3, "speed": 0.3, "size": "small", "zone": "fittoa", "sprite": "slime_32x32.png" },
+    { "id": "goblin", "name": "Goblin", "hp": 15, "attackDamage": 8, "attackSpeed": 0.5, "armor": 1, "xpReward": 8, "goldReward": 5, "speed": 0.5, "size": "small", "zone": "fittoa", "sprite": "goblin_28x40.png" },
+    { "id": "goblin_thief", "name": "Goblin Thief", "hp": 12, "attackDamage": 10, "attackSpeed": 0.8, "armor": 0, "xpReward": 10, "goldReward": 8, "speed": 0.7, "size": "small", "zone": "fittoa", "sprite": "goblin_thief_28x40.png" },
+    { "id": "goblin_shaman", "name": "Goblin Shaman", "hp": 18, "attackDamage": 12, "attackSpeed": 0.6, "armor": 0, "xpReward": 12, "goldReward": 6, "speed": 0.4, "size": "small", "zone": "fittoa", "sprite": "goblin_shaman_28x40.png" },
+    { "id": "orc", "name": "Orc", "hp": 40, "attackDamage": 14, "attackSpeed": 0.6, "armor": 5, "xpReward": 15, "goldReward": 10, "speed": 0.35, "size": "medium", "zone": "fittoa", "sprite": "orc_48x48.png" },
+    { "id": "orc_warrior", "name": "Orc Warrior", "hp": 60, "attackDamage": 18, "attackSpeed": 0.55, "armor": 10, "xpReward": 20, "goldReward": 14, "speed": 0.3, "size": "medium", "zone": "fittoa", "sprite": "orc_warrior_48x48.png" },
+    { "id": "orc_elite", "name": "Elite Orc", "hp": 90, "attackDamage": 22, "attackSpeed": 0.5, "armor": 12, "xpReward": 30, "goldReward": 20, "speed": 0.28, "size": "large", "zone": "fittoa", "sprite": "orc_elite_52x52.png" },
+    { "id": "wolf", "name": "Wolf", "hp": 25, "attackDamage": 12, "attackSpeed": 0.9, "armor": 2, "xpReward": 10, "goldReward": 6, "speed": 0.8, "size": "small", "zone": "fittoa", "sprite": "wolf_40x28.png" },
+    { "id": "demon_dog", "name": "Demon Dog", "hp": 35, "attackDamage": 16, "attackSpeed": 1.0, "armor": 3, "xpReward": 15, "goldReward": 10, "speed": 0.9, "size": "small", "zone": "demon", "sprite": "demon_dog_40x28.png" },
+    { "id": "stone_golem", "name": "Stone Golem", "hp": 120, "attackDamage": 20, "attackSpeed": 0.3, "armor": 25, "xpReward": 30, "goldReward": 20, "speed": 0.15, "size": "large", "zone": "demon", "sprite": "stone_golem_52x52.png" },
+    { "id": "basilisk", "name": "Basilisk", "hp": 60, "attackDamage": 18, "attackSpeed": 0.5, "armor": 8, "xpReward": 25, "goldReward": 18, "speed": 0.4, "size": "medium", "zone": "demon", "sprite": "basilisk_48x32.png" },
+    { "id": "minotaur", "name": "Minotaur", "hp": 150, "attackDamage": 30, "attackSpeed": 0.4, "armor": 15, "xpReward": 40, "goldReward": 30, "speed": 0.35, "size": "large", "zone": "demon", "sprite": "minotaur_48x52.png" },
+    { "id": "forest_troll", "name": "Forest Troll", "hp": 100, "attackDamage": 22, "attackSpeed": 0.45, "armor": 10, "xpReward": 25, "goldReward": 18, "speed": 0.3, "size": "large", "zone": "milis", "sprite": "troll_48x52.png" },
+    { "id": "harpy", "name": "Harpy", "hp": 30, "attackDamage": 14, "attackSpeed": 1.2, "armor": 2, "xpReward": 18, "goldReward": 12, "speed": 1.2, "size": "small", "zone": "milis", "sprite": "harpy_32x36.png" },
+    { "id": "phantom", "name": "Phantom", "hp": 40, "attackDamage": 20, "attackSpeed": 0.7, "armor": 0, "xpReward": 22, "goldReward": 15, "speed": 0.6, "size": "medium", "zone": "begaritt", "sprite": "phantom_32x48.png", "isGhost": true },
+    { "id": "mimic", "name": "Mimic", "hp": 80, "attackDamage": 35, "attackSpeed": 0.6, "armor": 10, "xpReward": 35, "goldReward": 50, "speed": 0.0, "size": "medium", "zone": "begaritt", "sprite": "mimic_32x28.png", "isAmbush": true },
+    { "id": "young_dragon", "name": "Young Dragon", "hp": 200, "attackDamage": 40, "attackSpeed": 0.6, "armor": 20, "xpReward": 60, "goldReward": 50, "speed": 0.5, "size": "large", "zone": "asura", "sprite": "young_dragon_56x40.png" },
+    {
+      "id": "guardian_beast", "name": "Guardian Beast",
+      "hp": 800, "attackDamage": 60, "attackSpeed": 0.7, "armor": 25,
+      "xpReward": 200, "goldReward": 200, "speed": 0.4, "size": "boss",
+      "zone": "begaritt", "sprite": "boss_guardian_beast_72x64.png",
+      "isBoss": true, "phases": 2,
+      "mechanics": [
+        { "name": "Claw Swipe", "damageMultiplier": 1.5, "cooldown": 3000 },
+        { "name": "Roar (Stun)", "effect": "stun", "cooldown": 8000 },
+        { "name": "Enrage (Phase 2)", "effect": "attackSpeed * 1.5", "hpThreshold": 0.3 }
+      ]
+    },
+    {
+      "id": "thorn_warden", "name": "The Thorn Warden",
+      "hp": 500, "attackDamage": 35, "attackSpeed": 0.6, "armor": 15,
+      "xpReward": 150, "goldReward": 150, "speed": 0.3, "size": "boss",
+      "zone": "fittoa", "sprite": "boss_thorn-warden_64x64.png",
+      "isBoss": true, "phases": 2,
+      "mechanics": [
+        { "name": "Thorn Volley", "damageMultiplier": 1.2, "aoe": true, "cooldown": 5000 },
+        { "name": "Vine Snare", "effect": "root", "cooldown": 7000 }
+      ]
+    },
+    {
+      "id": "orsted_tp2", "name": "Orsted (First Encounter)",
+      "hp": 99999, "attackDamage": 999, "attackSpeed": 2.0, "armor": 999,
+      "xpReward": 0, "goldReward": 0, "speed": 0, "size": "boss",
+      "zone": "demon", "sprite": "orsted_64x64.png",
+      "isBoss": true, "isScriptedLoss": true,
+      "note": "This encounter is unwinnable. Story progression triggers on defeat."
+    }
+  ]
+}

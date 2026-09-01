@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {EconomyManager} from '../src/systems/EconomyManager.js';
+class S{constructor(){this.d={player:{gold:1},inventory:{items:[{uid:'x',rarity:'rare',quantity:2}]}}}get(p){return structuredClone(p.split('.').reduce((o,k)=>o[k],this.d))}batch(_,c){c.forEach(x=>{const a=x.path.split('.');const last=a.pop();let o=this.d;a.forEach(k=>o=o[k]);o[last]=x.value})}}
+test('selling removes item and grants rarity value',()=>{const s=new S();const r=new EconomyManager({stateManager:s}).sell('x');assert.equal(r.sold,true);assert.equal(s.d.player.gold,541);assert.equal(s.d.inventory.items.length,0)});

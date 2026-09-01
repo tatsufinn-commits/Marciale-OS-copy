@@ -1,0 +1,154 @@
+{
+  "comment": "Playable character definitions. Data-driven — add new characters without code changes.",
+  "schemaVersion": "1.0",
+  "weavers": [
+    {
+      "id": "rudeus",
+      "name": "Rudeus Greyrat",
+      "title": "The Quagmire",
+      "class": "Channeler",
+      "classRole": "Ranged Magic DPS",
+      "description": "Reincarnated with memories of his past life, Rudeus is a prodigy mage with voiceless incantation and immense mana.",
+      "unlockCondition": "Always available",
+      "baseStats": {
+        "hp": 60, "maxHp": 60,
+        "mana": 100, "maxMana": 100,
+        "attackDamage": 1.14,
+        "attackSpeed": 0.55,
+        "critChance": 0.05,
+        "critDamage": 1.65,
+        "armor": 5,
+        "dodge": 0.02,
+        "moveSpeed": 770
+      },
+      "statScaling": { "hpPerLevel": 8, "manaPerLevel": 12, "attackDamagePerLevel": 0.15 },
+      "affinity": "Water",
+      "skills": [
+        { "id": "water_ball", "name": "Water Ball", "type": "active", "school": "Water", "damage": 1.0, "cooldown": 1000, "manaCost": 5, "unlockLevel": 1 },
+        { "id": "stone_bullet", "name": "Stone Bullet", "type": "active", "school": "Earth", "damage": 1.2, "cooldown": 800, "manaCost": 4, "unlockLevel": 1 },
+        { "id": "wind_cutter", "name": "Wind Cutter", "type": "active", "school": "Wind", "damage": 0.8, "cooldown": 1200, "manaCost": 6, "unlockLevel": 3 },
+        { "id": "fireball", "name": "Fireball", "type": "active", "school": "Fire", "damage": 1.5, "cooldown": 2000, "manaCost": 10, "unlockLevel": 5 },
+        { "id": "quagmire", "name": "Quagmire", "type": "active", "school": "Water+Earth", "damage": 2.0, "cooldown": 5000, "manaCost": 25, "unlockLevel": 10, "aoe": true },
+        { "id": "voiceless_incantation", "name": "Voiceless Incantation", "type": "passive", "effect": "attackSpeed * 1.2", "unlockLevel": 1 }
+      ],
+      "startingGear": { "weapon": "apprentice_staff", "armor": "travel_robe" },
+      "sprite": "rudeus_early_32x48.png"
+    },
+    {
+      "id": "sylphy",
+      "name": "Sylphiette",
+      "title": "The Silent Fitts",
+      "class": "Channeler",
+      "classRole": "Stealth Mage / Support",
+      "description": "Rudeus's childhood friend and first wife. A half-elf mage with voiceless incantation and fierce loyalty.",
+      "unlockCondition": "Chapter 4",
+      "baseStats": {
+        "hp": 55, "maxHp": 55,
+        "mana": 90, "maxMana": 90,
+        "attackDamage": 0.95,
+        "attackSpeed": 0.65,
+        "critChance": 0.04,
+        "critDamage": 1.5,
+        "armor": 4,
+        "dodge": 0.05,
+        "moveSpeed": 800
+      },
+      "statScaling": { "hpPerLevel": 7, "manaPerLevel": 10, "attackDamagePerLevel": 0.12 },
+      "affinity": "Wind",
+      "skills": [
+        { "id": "wind_blade", "name": "Wind Blade", "type": "active", "school": "Wind", "damage": 0.9, "cooldown": 900, "manaCost": 4, "unlockLevel": 1 },
+        { "id": "barrier", "name": "Barrier", "type": "active", "school": "Barrier", "effect": "shield", "cooldown": 5000, "manaCost": 15, "unlockLevel": 3 },
+        { "id": "heal", "name": "Heal", "type": "active", "school": "Healing", "effect": "heal", "cooldown": 4000, "manaCost": 12, "unlockLevel": 5 },
+        { "id": "silent_cast", "name": "Silent Casting", "type": "passive", "effect": "reduced threat", "unlockLevel": 1 }
+      ],
+      "sprite": "sylphy_child_32x48.png"
+    },
+    {
+      "id": "roxy",
+      "name": "Roxy Migurdia",
+      "title": "The Water Saint",
+      "class": "Channeler",
+      "classRole": "Pure Water Mage",
+      "description": "Rudeus's first magic teacher and second wife. A Migurd prodigy who mastered water magic beyond her village's comprehension.",
+      "unlockCondition": "Chapter 3",
+      "baseStats": {
+        "hp": 45, "maxHp": 45,
+        "mana": 130, "maxMana": 130,
+        "attackDamage": 1.3,
+        "attackSpeed": 0.45,
+        "critChance": 0.06,
+        "critDamage": 1.7,
+        "armor": 3,
+        "dodge": 0.03,
+        "moveSpeed": 700
+      },
+      "statScaling": { "hpPerLevel": 6, "manaPerLevel": 15, "attackDamagePerLevel": 0.18 },
+      "affinity": "Water",
+      "skills": [
+        { "id": "water_storm", "name": "Water Storm", "type": "active", "school": "Water", "damage": 1.4, "cooldown": 1500, "manaCost": 8, "unlockLevel": 1 },
+        { "id": "aqua_heal", "name": "Aqua Heal", "type": "active", "school": "Healing", "effect": "heal", "cooldown": 3000, "manaCost": 10, "unlockLevel": 2 },
+        { "id": "ice_shard", "name": "Ice Shard", "type": "active", "school": "Water", "damage": 1.8, "cooldown": 2500, "manaCost": 15, "unlockLevel": 6 },
+        { "id": "aqua_heartia", "name": "Aqua Heartia", "type": "passive", "effect": "waterDamage * 5", "unlockLevel": 1, "requiresItem": "aqua_heartia" }
+      ],
+      "sprite": "roxy_28x44.png"
+    },
+    {
+      "id": "eris",
+      "name": "Eris Boreas Greyrat",
+      "title": "The Mad Sword King",
+      "class": "Striker",
+      "classRole": "Melee DPS",
+      "description": "Rudeus's first student and third wife. A Sword God Style prodigy with unparalleled combat drive.",
+      "unlockCondition": "Chapter 5",
+      "baseStats": {
+        "hp": 80, "maxHp": 80,
+        "mana": 30, "maxMana": 30,
+        "attackDamage": 1.43,
+        "attackSpeed": 0.7,
+        "critChance": 0.025,
+        "critDamage": 1.8,
+        "armor": 20,
+        "dodge": 0.08,
+        "moveSpeed": 850
+      },
+      "statScaling": { "hpPerLevel": 12, "manaPerLevel": 3, "attackDamagePerLevel": 0.2 },
+      "affinity": "Fire",
+      "skills": [
+        { "id": "sword_slash", "name": "Sword Slash", "type": "active", "damage": 1.2, "cooldown": 600, "unlockLevel": 1 },
+        { "id": "longsword_of_light", "name": "Longsword of Light", "type": "active", "damage": 3.5, "cooldown": 4000, "unlockLevel": 10 },
+        { "id": "war_cry", "name": "War Cry", "type": "active", "effect": "partyAttackBuff", "cooldown": 8000, "unlockLevel": 5 },
+        { "id": "combat_focus", "name": "Combat Focus", "type": "passive", "effect": "critChance * 1.5", "unlockLevel": 3 }
+      ],
+      "sprite": "eris_traveler_32x48.png"
+    },
+    {
+      "id": "zanoba",
+      "name": "Zanoba Shirone",
+      "title": "The Doll Prince",
+      "class": "Shaper",
+      "classRole": "Engineer / Summoner",
+      "description": "The eccentric prince of Shirone obsessed with figures and automatons. Rudeus's best friend and co-creator of the Magic Armor.",
+      "unlockCondition": "Chapter 19",
+      "baseStats": {
+        "hp": 70, "maxHp": 70,
+        "mana": 80, "maxMana": 80,
+        "attackDamage": 0.8,
+        "attackSpeed": 0.6,
+        "critChance": 0.03,
+        "critDamage": 1.4,
+        "armor": 8,
+        "dodge": 0.02,
+        "moveSpeed": 750
+      },
+      "statScaling": { "hpPerLevel": 9, "manaPerLevel": 8, "attackDamagePerLevel": 0.1 },
+      "affinity": "Earth",
+      "skills": [
+        { "id": "doll_throw", "name": "Doll Throw", "type": "active", "damage": 0.7, "cooldown": 700, "unlockLevel": 1 },
+        { "id": "doll_construct", "name": "Doll Construct", "type": "active", "effect": "summon", "cooldown": 5000, "unlockLevel": 3 },
+        { "id": "crafting_mastery", "name": "Crafting Mastery", "type": "passive", "effect": "forgeXp * 1.25", "unlockLevel": 1 },
+        { "id": "doll_legion", "name": "Doll Legion", "type": "active", "effect": "summonMultiple", "cooldown": 15000, "unlockLevel": 10 }
+      ],
+      "sprite": "zanoba_32x48.png"
+    }
+  ]
+}

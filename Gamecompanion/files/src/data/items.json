@@ -1,0 +1,229 @@
+{
+  "comment": "Item templates. 6 rarity tiers. Data-driven — add new items without code changes.",
+  "schemaVersion": "1.0",
+  "rarityTiers": [
+    { "id": "common", "name": "Common", "color": "#e4e4e4", "sockets": 0, "dustValue": 10 },
+    { "id": "uncommon", "name": "Uncommon", "color": "#54fc0c", "sockets": 1, "dustValue": 30 },
+    { "id": "magic", "name": "Magic-Grade", "color": "#2f8bfc", "sockets": 2, "dustValue": 90 },
+    { "id": "rare", "name": "Rare", "color": "#b40cfc", "sockets": 3, "dustValue": 270 },
+    { "id": "legendary", "name": "Legendary", "color": "#fc9c0c", "sockets": 4, "dustValue": 810 },
+    { "id": "immortal", "name": "Immortal", "color": "#fc2424", "sockets": 5, "dustValue": 2430 }
+  ],
+  "itemSlots": ["weapon", "offhand", "head", "body", "hands", "feet", "accessory1", "accessory2", "special"],
+  "items": [
+    {
+      "id": "apprentice_staff",
+      "name": "Apprentice Staff",
+      "slot": "weapon",
+      "rarity": "common",
+      "level": 1,
+      "stats": { "attackDamage": 2 },
+      "description": "A simple wooden staff, unadorned. Good for beginners.",
+      "sprite": "weapon_apprentice-staff_32x32.png"
+    },
+    {
+      "id": "iron_shortsword",
+      "name": "Iron Short Sword",
+      "slot": "weapon",
+      "rarity": "common",
+      "level": 1,
+      "stats": { "attackDamage": 3 },
+      "description": "A basic iron short sword. Functional.",
+      "sprite": "weapon_iron-sword_32x32.png"
+    },
+    {
+      "id": "aqua_heartia",
+      "name": "Aqua Heartia",
+      "slot": "weapon",
+      "rarity": "legendary",
+      "level": 10,
+      "stats": { "attackDamage": 8, "waterDamageMult": 5.0 },
+      "description": "Roxy's signature staff. Amplifies water magic fivefold. A teardrop sapphire glows at its tip.",
+      "sprite": "weapon_aqua-heartia_32x32.png"
+    },
+    {
+      "id": "paul_family_sword",
+      "name": "Greyrat Family Sword",
+      "slot": "weapon",
+      "rarity": "rare",
+      "level": 15,
+      "stats": { "attackDamage": 12, "critChance": 0.03 },
+      "description": "Paul Greyrat's heirloom sword. Passed down through generations. A blue gem gleams in the pommel.",
+      "sprite": "weapon_paul-sword_32x32.png"
+    },
+    {
+      "id": "dragon_god_sword",
+      "name": "Dragon God's Sword",
+      "slot": "weapon",
+      "rarity": "immortal",
+      "level": 60,
+      "stats": { "attackDamage": 45, "critDamage": 2.5, "allStats": 10 },
+      "description": "Orsted's personal blade. Faint blue-white glow emanates from the dragon-scale patterned steel.",
+      "sprite": "weapon_orsted-sword_32x32.png"
+    },
+    {
+      "id": "eris_longsword_travel",
+      "name": "Traveler's Longsword",
+      "slot": "weapon",
+      "rarity": "magic",
+      "level": 5,
+      "stats": { "attackDamage": 7, "attackSpeed": 0.05 },
+      "description": "A sturdy longsword with a red leather-wrapped grip. Used during the Demon Continent journey.",
+      "sprite": "weapon_eris-sword-travel_32x32.png"
+    },
+    {
+      "id": "eris_sword_king",
+      "name": "Sword King's Blade",
+      "slot": "weapon",
+      "rarity": "legendary",
+      "level": 35,
+      "stats": { "attackDamage": 28, "critChance": 0.08, "critDamage": 2.0 },
+      "description": "Eris's masterwork blade from the Holy Land of Swords. Gold guard with an emerald inset.",
+      "sprite": "weapon_eris-sword-return_32x32.png"
+    },
+    {
+      "id": "academy_staff",
+      "name": "Ranoa Academy Staff",
+      "slot": "weapon",
+      "rarity": "magic",
+      "level": 12,
+      "stats": { "attackDamage": 5, "manaRegen": 2 },
+      "description": "Standard Ranoa Magic University staff. Dark wood with a small clear crystal at the tip.",
+      "sprite": "weapon_academy-staff_32x32.png"
+    },
+    {
+      "id": "ruijerd_spear",
+      "name": "Superd War Spear",
+      "slot": "weapon",
+      "rarity": "rare",
+      "level": 20,
+      "stats": { "attackDamage": 18, "attackSpeed": -0.1, "range": 1.5 },
+      "description": "Ruijerd's signature spear. Broad leaf-shaped head on a long dark shaft bound with metal.",
+      "sprite": "weapon_ruijerd-spear_32x32.png"
+    },
+    {
+      "id": "travel_leather_armor",
+      "name": "Travel Leather Armor",
+      "slot": "body",
+      "rarity": "common",
+      "level": 1,
+      "stats": { "armor": 5, "maxHp": 10 },
+      "description": "A simple brown leather vest. Worn and practical.",
+      "sprite": "armor_travel-leather_32x32.png"
+    },
+    {
+      "id": "academy_robe",
+      "name": "Ranoa Academy Robe",
+      "slot": "body",
+      "rarity": "uncommon",
+      "level": 8,
+      "stats": { "armor": 3, "maxMana": 20 },
+      "description": "Dark navy blue robe with gold trim. Silver special student badge on the left chest.",
+      "sprite": "armor_academy-robe_32x32.png"
+    },
+    {
+      "id": "roxy_hat",
+      "name": "Roxy's Witch Hat",
+      "slot": "head",
+      "rarity": "rare",
+      "level": 5,
+      "stats": { "maxMana": 15, "manaRegen": 1 },
+      "description": "A classic dark purple pointed witch hat with a wide brim. Slightly floppy. Iconic.",
+      "sprite": "armor_roxy-hat_32x32.png"
+    },
+    {
+      "id": "magic_orb",
+      "name": "Focusing Orb",
+      "slot": "offhand",
+      "rarity": "uncommon",
+      "level": 3,
+      "stats": { "manaRegen": 3, "castSpeed": 0.05 },
+      "description": "A translucent blue glass sphere in a silver claw mount. Helps focus mana.",
+      "sprite": "offhand_magic-orb_32x32.png"
+    },
+    {
+      "id": "greyrat_signet_ring",
+      "name": "Greyrat Signet Ring",
+      "slot": "accessory1",
+      "rarity": "rare",
+      "level": 10,
+      "stats": { "allStats": 3, "goldFind": 0.1 },
+      "description": "Heavy gold ring with a dark blue sapphire engraved with the Greyrat family crest.",
+      "sprite": "accessory_greyrat-ring_32x32.png"
+    },
+    {
+      "id": "sylphy_pendant",
+      "name": "Sylphiette's Pendant",
+      "slot": "accessory2",
+      "rarity": "legendary",
+      "level": 1,
+      "stats": { "affinityGain": 0.15, "maxHp": 20 },
+      "description": "A silver locket on a thin chain. Contains a keepsake. Given by Rudeus.",
+      "sprite": "accessory_sylphy-pendant_32x32.png"
+    },
+    {
+      "id": "roxy_promise_ring",
+      "name": "Promise Ring",
+      "slot": "accessory1",
+      "rarity": "rare",
+      "level": 20,
+      "stats": { "waterDamage": 0.15, "maxMana": 25 },
+      "description": "Delicate silver ring with a light blue aquamarine. A symbol of a new beginning.",
+      "sprite": "accessory_roxy-ring_32x32.png"
+    },
+    {
+      "id": "milis_cross",
+      "name": "Milis Church Cross",
+      "slot": "accessory2",
+      "rarity": "magic",
+      "level": 5,
+      "stats": { "holyResistance": 0.1, "maxHp": 15 },
+      "description": "A silver cross pendant with a circle at the intersection. Symbol of the Milis faith.",
+      "sprite": "accessory_milis-cross_32x32.png"
+    },
+    {
+      "id": "vaela_amulet_of_belonging",
+      "name": "Vaela's Amulet of Belonging",
+      "slot": "accessory1",
+      "rarity": "legendary",
+      "level": 25,
+      "stats": { "castSpeed": 0.15, "magicDamage": 0.10 },
+      "description": "A half-elf heritage pendant pulsing with arcane resilience. Sourced from Vaela's personal quest.",
+      "sprite": "accessory_greyrat-ring_32x32.png"
+    },
+    {
+      "id": "kaelen_oathblade",
+      "name": "Kaelen's Oathblade",
+      "slot": "weapon",
+      "rarity": "legendary",
+      "level": 25,
+      "stats": { "attackDamage": 35, "mitigation": 0.20 },
+      "description": "The blade of a fallen paladin, restored by true purpose. Sourced from Kaelen's personal quest.",
+      "sprite": "weapon_paul-sword_32x32.png"
+    },
+    {
+      "id": "sera_echo_lens",
+      "name": "Sera's Echo Lens",
+      "slot": "offhand",
+      "rarity": "legendary",
+      "level": 25,
+      "stats": { "xpMultiplier": 0.25, "manaRegen": 0.15 },
+      "description": "An Aether-attuned focusing lens that reveals hidden resonances. Sourced from Sera's personal quest.",
+      "sprite": "offhand_magic-orb_32x32.png"
+    }
+  ],
+  "materials": [
+    { "id": "mana_crystal", "name": "Mana Crystal", "rarity": "uncommon", "dustValue": 15, "sprite": "material_mana-crystal_32x32.png" },
+    { "id": "aether_dust", "name": "Mana Dust", "rarity": "common", "dustValue": 1, "sprite": "material_dust_32x32.png" },
+    { "id": "monster_hide", "name": "Monster Hide", "rarity": "uncommon", "dustValue": 10, "sprite": "material_hide_32x32.png" },
+    { "id": "magic_thread", "name": "Magic Thread", "rarity": "magic", "dustValue": 25, "sprite": "material_thread_32x32.png" },
+    { "id": "soul_stone", "name": "Soul Stone", "rarity": "rare", "dustValue": 100, "sprite": "icon_soul-stone_12x12.png" },
+    { "id": "memory_shard", "name": "Memory Shard", "rarity": "rare", "dustValue": 80, "sprite": "icon_memory-shard_12x12.png" },
+    { "id": "loom_fragment", "name": "Loom Fragment", "rarity": "legendary", "dustValue": 500, "sprite": "material_fragment_32x32.png" }
+  ],
+  "consumables": [
+    { "id": "healing_potion_minor", "name": "Healing Potion", "effect": "heal", "value": 30, "rarity": "common", "sprite": "consumable_healing-potion_32x32.png" },
+    { "id": "mana_potion_minor", "name": "Mana Potion", "effect": "restoreMana", "value": 30, "rarity": "common", "sprite": "consumable_mana-potion_32x32.png" },
+    { "id": "antidote", "name": "Antidote", "effect": "curePoison", "value": 0, "rarity": "common", "sprite": "consumable_antidote_32x32.png" }
+  ]
+}

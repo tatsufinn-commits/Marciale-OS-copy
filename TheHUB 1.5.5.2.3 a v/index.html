@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hub — Portal, Bookmarks & Tracker</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b0f1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https: http://127.0.0.1:* http://localhost:*; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'self'; form-action 'none'">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#appMain">Skip to content</a>
+
+<button class="side-toggle" id="sideToggle" title="Sidebar settings">☰</button>
+<aside class="sidebar" id="sidebar" aria-label="Hub sidebar">
+  <div class="side-brand control-brand"><span class="spark">✦</span><span><b>Hub Control</b><small>Local-first command center</small></span><em>Live</em></div>
+  <div class="settings-tools" aria-label="Settings tools">
+    <div class="settings-search-wrap">
+      <span aria-hidden="true">⌕</span>
+      <input id="settingsSearch" type="search" placeholder="Search settings…" autocomplete="off">
+    </div>
+    <div class="settings-tool-row">
+      <button type="button" id="settingsExpandAll">Expand all</button>
+      <button type="button" id="settingsCollapseAll">Collapse all</button>
+    </div>
+    <div class="settings-no-results" id="settingsNoResults" hidden>No matching settings.</div>
+  </div>
+  <div class="side-section">
+    <h3>Navigation</h3>
+    <div class="side-nav" id="sideNav">
+      <button data-side-page="today" class="active">☀️ Today</button>
+      <button data-side-page="dash">🔖 Portal & Bookmarks</button>
+      <button data-side-page="idlehero">🧬 Idle Hero</button>
+      <button data-side-page="chess">♟️ ChessLab</button>
+      <button data-side-page="ruview">🛰️ RuView</button>
+      <button data-side-page="cal">📅 Calendar</button>
+      <button data-side-page="tasks">✅ Tasks</button>
+      <button data-side-page="notes">📝 Markdown Notes</button>
+      <button data-side-page="ai">🤖 Marciale</button>
+      <button data-side-page="track">⚡ Intake Tracker</button>
+      <button data-side-page="vault">🔐 Vault</button>
+    </div>
+  </div>
+  <div class="side-section">
+    <h3>Theme</h3>
+    <div class="side-row"><label>Accent</label><input id="themeAccent" type="color"></div>
+    <div class="side-row"><label>Background</label><input id="themeBg" type="color"></div>
+    <div class="side-row"><label>Cards</label><input id="themeCard" type="color"></div>
+    <div class="side-row"><label>Text</label><input id="themeText" type="color"></div>
+    <div class="preset-grid">
+      <button data-theme-preset="arena">Arena</button>
+      <button data-theme-preset="discord">Discord</button>
+      <button data-theme-preset="twitch">Twitch</button>
+      <button data-theme-preset="focus">Focus</button>
+      <button data-theme-preset="spotify">Spotify</button>
+      <button data-theme-preset="midnight">Midnight</button>
+      <button data-theme-preset="mapua">Mapúa</button>
+      <button data-theme-preset="contrast">Contrast</button>
+    </div>
+    <button class="side-btn" id="themeReset" style="margin-top:8px;text-align:center">Reset theme</button>
+  </div>
+  <div class="side-section">
+    <h3>Activity heatmap</h3>
+    <div class="side-row activity-setting-row"><input id="activityShowToday" type="checkbox"><label for="activityShowToday">Show heatmap on Today</label></div>
+    <div class="side-note">Choose which user actions count toward your Hub Activity streak.</div>
+    <div class="activity-toggle-grid">
+      <label><input id="activityCountTasks" type="checkbox"><span>✅ Tasks done</span></label>
+      <label><input id="activityCountNotes" type="checkbox"><span>📝 Notes</span></label>
+      <label><input id="activityCountIntake" type="checkbox"><span>☕ Intake logs</span></label>
+      <label><input id="activityCountCalendar" type="checkbox"><span>📅 Calendar adds</span></label>
+      <label><input id="activityCountBookmarks" type="checkbox"><span>🔖 Bookmarks</span></label>
+      <label><input id="activityCountMarciale" type="checkbox"><span>🤖 Marciale actions</span></label>
+      <label><input id="activityCountChess" type="checkbox"><span>♟️ Chess matches</span></label>
+    </div>
+    <button class="side-btn danger" id="activityResetHistory" style="text-align:center;margin-top:8px">Reset activity history</button>
+  </div>
+  <div class="side-section">
+    <h3>UI optimizer</h3>
+    <div class="side-row"><label>Preset</label><select id="uiPreset"><option value="balanced">Balanced</option><option value="focus">Focus</option><option value="compact">Compact</option><option value="comfort">Comfort</option><option value="performance">Performance</option></select></div>
+    <div class="side-row"><label>Density</label><select id="uiDensity"><option value="normal">Normal</option><option value="compact">Compact</option><option value="comfy">Comfy</option></select></div>
+    <div class="side-row"><input id="uiWide" type="checkbox"><label for="uiWide" style="min-width:0;flex:1">Wide layout</label></div>
+    <div class="side-row"><input id="uiGlass" type="checkbox"><label for="uiGlass" style="min-width:0;flex:1">Glass / depth effects</label></div>
+    <div class="side-row"><input id="uiMotion" type="checkbox"><label for="uiMotion" style="min-width:0;flex:1">Reduce motion</label></div>
+    <div class="field" style="margin-bottom:9px"><label>Corner radius</label><input id="uiRadius" class="ui-range" type="range" min="6" max="24" step="1"></div>
+    <div class="field" style="margin-bottom:9px"><label>Font scale</label><input id="uiFontScale" class="ui-range" type="range" min="90" max="115" step="1"></div>
+    <button class="side-btn" id="uiOptimize" style="text-align:center">Optimize UI</button>
+    <button class="side-btn" id="uiReconfigure" style="text-align:center;margin-top:8px">Apply preset / reconfigure</button>
+    <button class="side-btn" id="uiReset" style="text-align:center;margin-top:8px">Reset UI</button>
+    <div class="side-note">Optimize chooses a practical layout for your screen and motion preference. Reset returns only layout/UI tuning, not your data.</div>
+  </div>
+  <div class="side-section">
+    <h3>Assistant permissions</h3>
+    <div class="side-row assistant-approval-row"><label for="aiApprovalMode">Approval</label><select id="aiApprovalMode">
+      <option value="all">Ask before every tool action</option>
+      <option value="danger">Ask only for destructive actions</option>
+      <option value="none">Auto-run all tool actions</option>
+    </select></div>
+    <div class="side-row assistant-toggle-row"><input id="aiAutoTabs" type="checkbox"><label for="aiAutoTabs">Open/switch tabs without asking</label></div>
+    <div class="side-row assistant-toggle-row"><input id="aiStreaming" type="checkbox"><label for="aiStreaming">Stream assistant text live</label></div>
+    <div class="ai-resource-box">
+      <div class="ai-resource-head"><b>AI Resource Governor</b><span id="aiResourceStatus">Loading model limits…</span></div>
+      <div class="side-row"><label for="aiModelPreset">Preset</label><select id="aiModelPreset"><option value="daily_fast">Daily Fast</option><option value="tool_reliable">Tool Reliable</option><option value="strategic_deep">Strategic Deep</option><option value="low_ram">Low RAM</option></select></div>
+      <div class="ai-resource-actions"><button class="side-btn primary" id="aiApplyPreset" type="button">Apply preset</button><button class="side-btn" id="aiRefreshLoaded" type="button">Loaded models</button></div>
+      <div class="ai-loaded-status" id="aiLoadedStatus">Loaded model status not checked yet.</div>
+      <div class="side-row"><label for="aiKeepAlive">Keep alive</label><select id="aiKeepAlive"><option value="0">Unload immediately</option><option value="30s">30 seconds</option><option value="1m">1 minute</option><option value="5m">5 minutes</option></select></div>
+      <div class="side-row"><label for="aiContextBudget">Context</label><select id="aiContextBudget"><option value="2048">Compact · 2k</option><option value="4096">Normal · 4k</option><option value="8192">Large · 8k</option></select></div>
+      <div class="side-row"><label for="aiAutopilotModel">Autopilot</label><select id="aiAutopilotModel"></select></div>
+      <div class="side-row"><label for="aiStrategicModel">Strategic</label><select id="aiStrategicModel"></select></div>
+      <div class="side-row"><label for="aiAutopilotCooldown">AI cooldown</label><select id="aiAutopilotCooldown"><option value="5">5 minutes</option><option value="10">10 minutes</option><option value="30">30 minutes</option><option value="60">60 minutes</option></select></div>
+      <button class="side-btn" id="aiUnloadModel" type="button" style="text-align:center">Unload current model</button>
+      <div class="ai-model-warning" id="aiModelWarning">Large-model warnings appear here.</div>
+    </div>
+    <button class="side-btn" id="sideAiConnection" style="text-align:center">Connection settings</button>
+    <div class="side-note">Recommendation: keep “Ask before every tool action” on. Resource Governor keeps local AI lightweight by default; use larger models deliberately for deep analysis.</div>
+  </div>
+  <div class="side-section notifications-settings-section">
+    <h3>Desktop notifications</h3>
+    <div class="notification-status" id="notificationStatus">Notification status loading…</div>
+    <div class="side-row assistant-toggle-row"><input id="notificationsEnabled" type="checkbox"><label for="notificationsEnabled">Enable desktop notifications</label></div>
+    <div class="notification-toggle-grid">
+      <label><input id="notificationsInstructor" type="checkbox"><span>Instructor interventions</span></label>
+      <label><input id="notificationsAutopilot" type="checkbox"><span>Marciale / Autopilot alerts</span></label>
+      <label><input id="notificationsCalendar" type="checkbox"><span>Calendar reminders</span></label>
+    </div>
+    <div class="notification-time-grid">
+      <div class="field"><label>Quiet start</label><input id="notificationsQuietStart" class="side-input" type="time"></div>
+      <div class="field"><label>Quiet end</label><input id="notificationsQuietEnd" class="side-input" type="time"></div>
+      <div class="field"><label>Cooldown seconds</label><input id="notificationsCooldown" class="side-input" type="number" min="0" max="3600" step="10"></div>
+    </div>
+    <div class="notification-actions">
+      <button class="side-btn primary" id="notificationPermission" type="button">Request permission</button>
+      <button class="side-btn" id="notificationTest" type="button">Send test</button>
+    </div>
+    <div class="side-note">Desktop popups use the browser Notification API and require permission. If permission is denied or unsupported, TheHUB falls back to in-app toasts.</div>
+  </div>
+
+  <div class="side-section autopilot-settings-section">
+    <h3>Marciale Autopilot</h3>
+    <div class="side-row autopilot-toggle-row"><input id="autopilotEnabled" type="checkbox"><label for="autopilotEnabled">Enable Autopilot for Marciale profile</label></div>
+    <div class="side-row"><label for="autopilotLevel">Level</label><select id="autopilotLevel">
+      <option value="observe">Observe only</option>
+      <option value="suggest">Suggest actions</option>
+      <option value="safe">Auto-run safe actions</option>
+      <option value="full">Full Hub autonomy</option>
+    </select></div>
+    <div class="side-row"><label for="autopilotInterval">Interval</label><select id="autopilotInterval">
+      <option value="5">Every 5 min</option>
+      <option value="10">Every 10 min</option>
+      <option value="15">Every 15 min</option>
+      <option value="30">Every 30 min</option>
+    </select></div>
+    <div class="side-row"><label for="autopilotMaxActions">Max auto</label><select id="autopilotMaxActions">
+      <option value="1">1 safe action / scan</option>
+      <option value="2">2 safe actions / scan</option>
+      <option value="3">3 safe actions / scan</option>
+      <option value="5">5 safe actions / scan</option>
+    </select></div>
+    <div class="side-row autopilot-toggle-row"><input id="autopilotAiReasoning" type="checkbox"><label for="autopilotAiReasoning">Use AI reasoning when Ollama is online</label></div>
+    <div class="autopilot-tuning-grid">
+      <div class="side-row"><label for="autopilotDeadlineWarn">Warn deadlines</label><select id="autopilotDeadlineWarn"><option value="24">Within 24h</option><option value="48">Within 48h</option><option value="72">Within 72h</option><option value="168">Within 7 days</option></select></div>
+      <div class="side-row"><label for="autopilotDeadlineDanger">Danger deadlines</label><select id="autopilotDeadlineDanger"><option value="12">Within 12h</option><option value="24">Within 24h</option><option value="48">Within 48h</option></select></div>
+      <div class="side-row"><label for="autopilotMaxInProgress">Max in progress</label><select id="autopilotMaxInProgress"><option value="2">2 tasks</option><option value="3">3 tasks</option><option value="4">4 tasks</option><option value="5">5 tasks</option></select></div>
+      <div class="side-row"><label for="autopilotCaffeineWarn">Caffeine warn</label><select id="autopilotCaffeineWarn"><option value="0">Use sleep threshold</option><option value="80">80mg</option><option value="120">120mg</option><option value="160">160mg</option><option value="240">240mg</option><option value="300">300mg</option></select></div>
+      <div class="side-row"><label for="autopilotNoActivityAfter">No activity after</label><select id="autopilotNoActivityAfter"><option value="-1">Off</option><option value="12">12 PM</option><option value="15">3 PM</option><option value="18">6 PM</option></select></div>
+      <div class="side-row autopilot-toggle-row"><input id="autopilotVaultReminder" type="checkbox"><label for="autopilotVaultReminder">Warn if Vault stays unlocked</label></div>
+      <div class="side-row autopilot-toggle-row"><input id="autopilotOrphanWarnings" type="checkbox"><label for="autopilotOrphanWarnings">Warn about deadlines without tasks</label></div>
+      <div class="side-row autopilot-toggle-row"><input id="autopilotOverdueWarnings" type="checkbox"><label for="autopilotOverdueWarnings">Warn about overdue tasks</label></div>
+    </div>
+    <div class="autopilot-log-status" id="autopilotTuningStatus">Signal tuning loading…</div>
+    <div class="autopilot-actions-row">
+      <button class="side-btn" id="autopilotRunNow" type="button">Run scan now</button>
+      <button class="side-btn" id="autopilotPause" type="button">Pause 30m</button>
+      <button class="side-btn" id="autopilotAct" type="button">View rules</button>
+    </div>
+    <div class="autopilot-log-status" id="autopilotLogStatus">No Autopilot audit entries yet.</div>
+    <div class="autopilot-log-actions">
+      <button class="side-btn" id="autopilotViewLog" type="button">View audit log</button>
+      <button class="side-btn danger" id="autopilotClearLog" type="button">Clear audit log</button>
+    </div>
+    <div class="side-note">Autopilot stays inside TheHUB, is visible, logged, reversible, and never accesses vault passwords or OS-level controls.</div>
+  </div>
+  <div class="side-section shortcuts-section">
+    <h3>Keyboard shortcuts</h3>
+    <div class="shortcut-list compact">
+      <div><span><kbd>Ctrl</kbd>/<kbd>⌘</kbd> <kbd>K</kbd></span><b>Open command palette</b></div>
+      <div><span><kbd>Alt</kbd> <kbd>1</kbd>–<kbd>0</kbd></span><b>Switch pages</b></div>
+      <div><span><kbd>?</kbd></span><b>Show shortcut overlay</b></div>
+      <div><span><kbd>Esc</kbd></span><b>Close topmost dialog</b></div>
+      <div><span><kbd>↑</kbd><kbd>↓</kbd></span><b>Move in command palette</b></div>
+      <div><span><kbd>Enter</kbd></span><b>Run command / send Marciale</b></div>
+      <div><span><kbd>Shift</kbd> <kbd>Enter</kbd></span><b>New line in Marciale</b></div>
+      <div><span><kbd>Tab</kbd></span><b>Cycle within open dialog</b></div>
+    </div>
+    <button class="side-btn" id="sideShortcutHelp" style="text-align:center;margin-top:8px">Open shortcut overlay</button>
+    <div class="side-note">Tip: use the command palette when you forget where a tool lives.</div>
+  </div>
+  <div class="side-section info-center-section">
+    <h3>Information Center</h3>
+    <div class="info-center-status" id="infoCenterStatus">Information Center loading…</div>
+    <div class="side-row assistant-toggle-row"><input id="infoEnabled" type="checkbox"><label for="infoEnabled">Enable Information Center</label></div>
+    <div class="side-row assistant-toggle-row"><input id="infoInjectToMarciale" type="checkbox"><label for="infoInjectToMarciale">Use as Marciale context</label></div>
+    <div class="info-center-grid">
+      <div class="field"><label>Name / handle</label><input id="infoName" class="side-input" placeholder="Optional"></div>
+      <div class="field"><label>School</label><input id="infoSchool" class="side-input" placeholder="Institution or campus"></div>
+      <div class="field"><label>Course / program</label><input id="infoCourse" class="side-input" placeholder="e.g. Architecture, BIM, etc."></div>
+      <div class="field"><label>Timezone</label><input id="infoTimezone" class="side-input" placeholder="Asia/Singapore"></div>
+      <div class="field"><label>Preferred work hours</label><input id="infoWorkHours" class="side-input" placeholder="e.g. 23:00–01:00"></div>
+      <div class="field"><label>Sleep target</label><input id="infoSleepTarget" class="side-input" placeholder="e.g. 7h, before 02:00"></div>
+      <div class="field wide"><label>Constraints</label><textarea id="infoConstraints" class="side-textarea" placeholder="Time, device, commute, family, health, budget, school constraints..."></textarea></div>
+      <div class="field wide"><label>Routines</label><textarea id="infoRoutines" class="side-textarea" placeholder="Daily/weekly rhythm, classes, chores, recurring work blocks..."></textarea></div>
+      <div class="field wide"><label>Habits</label><textarea id="infoHabits" class="side-textarea" placeholder="Useful habits, friction points, distractions, caffeine patterns..."></textarea></div>
+      <div class="field wide"><label>Energy patterns</label><textarea id="infoEnergyPatterns" class="side-textarea" placeholder="Peak hours, low-energy windows, sleep/caffeine sensitivity..."></textarea></div>
+      <div class="field"><label>Commute</label><input id="infoCommute" class="side-input" placeholder="Optional"></div>
+      <div class="field"><label>Chores</label><input id="infoChores" class="side-input" placeholder="Optional"></div>
+      <div class="field"><label>Institution</label><input id="infoInstitution" class="side-input" placeholder="Optional"></div>
+      <div class="field"><label>Term</label><input id="infoTerm" class="side-input" placeholder="Term / semester"></div>
+      <div class="field wide"><label>Subjects</label><textarea id="infoSubjects" class="side-textarea" placeholder="Subjects/classes, deadlines style, course notes..."></textarea></div>
+      <div class="field wide"><label>Instructors</label><textarea id="infoInstructors" class="side-textarea" placeholder="Instructor preferences or class-specific rules..."></textarea></div>
+      <div class="field wide"><label>Grading notes</label><textarea id="infoGradingNotes" class="side-textarea" placeholder="Rubrics, grading weight, submission expectations..."></textarea></div>
+      <div class="field"><label>Answer style</label><input id="infoAnswerStyle" class="side-input" placeholder="concise checklists"></div>
+      <div class="field"><label>Task granularity</label><input id="infoTaskGranularity" class="side-input" placeholder="clear next actions"></div>
+      <div class="field"><label>Deadline buffer days</label><input id="infoDeadlineBufferDays" class="side-input" type="number" min="0" max="30" step="1"></div>
+      <div class="field"><label>Preferred LOCK IN</label><input id="infoPreferredFocusLength" class="side-input" placeholder="25–50 minutes"></div>
+      <div class="field wide"><label>Extra context</label><textarea id="infoNotes" class="side-textarea" placeholder="Anything Marciale should consider when planning. Do not store passwords or secrets here."></textarea></div>
+    </div>
+    <div class="info-center-actions">
+      <button class="side-btn primary" id="infoSave" type="button">Save Information Center</button>
+      <button class="side-btn" id="infoReset" type="button">Reset Information Center</button>
+    </div>
+    <div class="side-note">Use this for lifestyle, school, routines, habits, and planning preferences. Do not store passwords, API keys, recovery codes, or secrets here; use Vault for secrets.</div>
+  </div>
+
+  <div class="side-section">
+    <h3>Marciale brain</h3>
+    <div class="field" style="margin-bottom:9px"><label>Brain profile</label><select id="brainProfile" class="side-input">
+      <option value="balanced">Balanced</option>
+      <option value="assistant">Assistant</option>
+      <option value="professional">Professional</option>
+      <option value="instructor">Instructor</option>
+      <option value="marciale">Marciale</option>
+    </select></div>
+    <div class="brain-profile-summary" id="brainProfileSummary">Select a profile to preview its behavior.</div>
+    <div class="brain-profile-actions">
+      <button class="side-btn" id="brainApplyProfile" style="text-align:center">Apply profile</button>
+      <button class="side-btn" id="brainPreview" style="text-align:center">Preview selected profile</button>
+    </div>
+    <div class="field" style="margin-bottom:9px"><label>Name</label><input id="brainName" class="side-input" placeholder="Marciale"></div>
+    <div class="field" style="margin-bottom:9px"><label>Prefix injection</label><textarea id="brainPrefix" class="side-textarea" placeholder="Optional instructions injected before Marciale's main prompt..."></textarea></div>
+    <div class="field" style="margin-bottom:9px"><label>Memories</label><textarea id="brainMemories" class="side-textarea" placeholder="Facts Marciale should remember about you, your workflow, preferences, projects..."></textarea></div>
+    <div class="field" style="margin-bottom:9px"><label>Skills</label><textarea id="brainSkills" class="side-textarea" placeholder="Special skills/style rules Marciale should use, e.g. BIM assistant, concise planner, study coach..."></textarea></div>
+    <div class="field" style="margin-bottom:9px"><label>Suffix injection</label><textarea id="brainSuffix" class="side-textarea" placeholder="Optional closing instructions injected near the end of the prompt..."></textarea></div>
+    <div class="side-row"><input id="brainUseMemories" type="checkbox"><label for="brainUseMemories" style="min-width:0;flex:1">Inject memories</label></div>
+    <div class="side-row"><input id="brainUseSkills" type="checkbox"><label for="brainUseSkills" style="min-width:0;flex:1">Inject skills</label></div>
+    <div class="brain-hygiene-box">
+      <div class="brain-hygiene-status" id="brainHygieneStatus">Brain hygiene not scanned yet.</div>
+      <div class="brain-hygiene-actions">
+        <button class="side-btn" id="brainScan" type="button">Scan brain</button>
+        <button class="side-btn" id="brainDedupe" type="button">Remove duplicates</button>
+        <button class="side-btn" id="brainNormalize" type="button">Normalize bullets</button>
+        <button class="side-btn" id="brainSummarize" type="button">Draft cleanup with Marciale</button>
+      </div>
+    </div>
+    <button class="side-btn" id="brainSave" style="text-align:center">Save brain</button>
+    <button class="side-btn" id="brainRecommend" style="text-align:center;margin-top:8px">Load recommended brain</button>
+    <button class="side-btn" id="brainReset" style="text-align:center;margin-top:8px">Reset brain</button>
+    <div class="side-note">Brain text is local Hub data and syncs through your shared local file. Do not store passwords here.</div>
+  </div>
+  <div class="side-section">
+    <h3>Marciale command guide</h3>
+    <div class="cmd-list" id="cmdList">
+      <button class="cmd" data-prompt="Open the intake tracker tab"><b>Open a tab</b><span>“Open the intake tracker tab”</span></button>
+      <button class="cmd" data-prompt="Log 1 Spanish Latte today at 09:30"><b>Log a beverage</b><span>“Log 1 Spanish Latte today at 09:30”</span></button>
+      <button class="cmd" data-prompt="Log 1 Cobra Energy 350 mL today at 18:00"><b>Log energy drink</b><span>“Log 1 Cobra Energy 350 mL today at 18:00”</span></button>
+      <button class="cmd" data-prompt="What is my active caffeine now, and when will I be below my sleep threshold?"><b>Check sleep readiness</b><span>Ask active caffeine + below-threshold time</span></button>
+      <button class="cmd" data-prompt="Add a deadline called Submit CAD drawings on YYYY-MM-DD and remind me 2 days before and on the day"><b>Add calendar deadline</b><span>Deadline + reminders</span></button>
+      <button class="cmd" data-prompt="Add an event called Team meeting on YYYY-MM-DD at HH:MM with notes: agenda here"><b>Add timed event</b><span>Calendar event with time/notes</span></button>
+      <button class="cmd" data-prompt="Bookmark https://example.com under Dev with tags reference, tool and description: useful resource"><b>Add bookmark</b><span>URL + category + tags</span></button>
+      <button class="cmd" data-prompt="Add ChatGPT to my AI portal section with url https://chat.openai.com"><b>Add portal tile</b><span>Quick-launch tool tile</span></button>
+      <button class="cmd" data-prompt="Append this to my notebook: ## Today\n- Task 1\n- Task 2"><b>Append Markdown note</b><span>Add Markdown to Notebook</span></button>
+      <button class="cmd" data-prompt="Search my local memory for Mapúa project hex color"><b>Search local memory</b><span>Bookmarks/events/notes RAG search</span></button>
+      <button class="cmd" data-prompt="Add a new drink to the menu: name Matcha Latte, caffeine 80mg, taurine 0mg, sugar 18g, unit cup"><b>Add custom drink</b><span>Extend intake menu</span></button>
+      <button class="cmd" data-prompt="Open the vault tab"><b>Open vault</b><span>Manage encrypted accounts manually</span></button>
+      <button class="cmd" data-prompt="Search my vault metadata for Google accounts"><b>Search vault metadata</b><span>Assistant can search labels/emails only, not passwords</span></button>
+      <button class="cmd" data-prompt="Remember this: I prefer concise answers with checklists"><b>Add brain memory</b><span>Save a long-term preference</span></button>
+      <button class="cmd" data-prompt="Add this skill to your brain: act as my time-blocking coach when I plan deadlines"><b>Add brain skill</b><span>Teach Marciale a custom skill</span></button>
+      <button class="cmd" data-prompt="Delete the bookmark named example"><b>Delete item</b><span>Destructive actions ask first</span></button>
+    </div>
+    <div class="side-note">Click a command to load it into the Assistant box, then edit the placeholders before sending.</div>
+  </div>
+
+  <div class="side-section projects-settings-section">
+    <h3>Projects</h3>
+    <div class="project-side-status" id="projectSideStatus">No projects yet.</div>
+    <div class="project-side-actions">
+      <button class="side-btn" id="projectAddBtn" type="button">New project</button>
+      <button class="side-btn" id="projectRefreshBtn" type="button">Refresh projects</button>
+    </div>
+    <div class="project-side-list" id="projectSideList"></div>
+    <div class="side-note">Project Mode links tasks into focused work folders. Events and notes will be linked in later builds.</div>
+  </div>
+  <div class="side-section experimental-settings-section">
+    <h3>Experimental Systems</h3>
+    <div class="experimental-status" id="experimentalStatus">Experimental systems loading…</div>
+    <div class="experimental-toggle-grid">
+      <label><input id="experimentalCompanionEnabled" type="checkbox"><span>Enable Companion</span></label>
+      <label><input id="experimentalCompanionToday" type="checkbox"><span>Show Companion on Today</span></label>
+      <label><input id="companionInlineGame" type="checkbox"><span>Show Idle Hero inline on Today</span></label>
+      <label><input id="companionPauseHidden" type="checkbox"><span>Pause game when Hub is hidden</span></label>
+      <label><input id="companionReduceMotion" type="checkbox"><span>Reduce companion animation with performance mode</span></label>
+      <label><input id="experimentalChessEnabled" type="checkbox"><span>Enable Chess Lab</span></label>
+      <label><input id="experimentalChessRewards" type="checkbox"><span>Chess activity rewards</span></label>
+      <label><input id="experimentalPresenceEnabled" type="checkbox"><span>Enable Presence</span></label>
+      <label><input id="experimentalPresenceToday" type="checkbox"><span>Show Presence on Today</span></label>
+      <label><input id="experimentalRuViewEnabled" type="checkbox"><span>Enable RuView bridge</span></label>
+    </div>
+    <div class="field" style="margin:9px 0"><label>RuView WebSocket URL</label><input id="experimentalRuViewUrl" class="side-input" placeholder="ws://127.0.0.1:3001/ws/sensing"></div>
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line)">
+      <div style="font-size:12px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">RuView Performance</div>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--txt);cursor:pointer;margin-bottom:6px"><input id="ruviewPerfModeHubCtrl" type="checkbox" style="accent-color:var(--acc)"><span>2D performance mode (disable 3D)</span></label>
+      <div style="font-size:11px;color:var(--mut);line-height:1.4">Reduces GPU load. Use on devices with less than 4GB RAM or integrated graphics.</div>
+    </div>
+    <button class="side-btn" id="experimentalReset" type="button" style="text-align:center">Reset experimental settings</button>
+    <div class="side-note">Category C systems are optional and fail-safe. If Companion, Chess, Presence, or RuView fails, core Hub should continue working.</div>
+  </div>
+  <div class="side-section settings-data-section">
+    <h3>Data & maintenance</h3>
+    <div class="side-stat" id="sideStats">Loading local stats…</div>
+    <div class="backup-status" id="backupStatus">Backup status loading…</div>
+    <div class="backup-status" id="restoreStatus">Restore Center loading…</div>
+    <div class="data-action-grid restore-action-grid">
+      <div class="data-card safe">
+        <div class="data-card-icon">🛟</div>
+        <div><b>Restore Center</b><span>Create, view, restore, export, or delete local restore points.</span></div>
+        <button class="side-btn" id="sideRestoreCenter" type="button">Open Restore Center</button>
+      </div>
+      <div class="data-card neutral">
+        <div class="data-card-icon">＋</div>
+        <div><b>Manual restore point</b><span>Snapshot current Hub state before experiments.</span></div>
+        <button class="side-btn" id="sideCreateRestore" type="button">Create restore point</button>
+      </div>
+    </div>
+    <div class="backup-status" id="debugLogStatus">Debug log loading…</div>
+    <div class="data-action-grid debug-action-grid">
+      <div class="data-card neutral">
+        <div class="data-card-icon">🐞</div>
+        <div><b>Debug log</b><span>View recent local runtime errors and copy the full log.</span></div>
+        <button class="side-btn" id="sideViewErrors" type="button">View errors</button>
+      </div>
+      <div class="data-card warn">
+        <div class="data-card-icon">⌫</div>
+        <div><b>Clear errors</b><span>Clears only the local debug log, not Hub data.</span></div>
+        <button class="side-btn" id="sideClearErrors" type="button">Clear errors</button>
+      </div>
+    </div>
+
+    <div class="data-action-grid">
+      <div class="data-card safe">
+        <div class="data-card-icon">⬇</div>
+        <div><b>Full backup</b><span>Download all Hub local data before major changes.</span></div>
+        <button class="side-btn" id="sideExportAll" type="button">Export backup</button>
+      </div>
+      <div class="data-card warn">
+        <div class="data-card-icon">⬆</div>
+        <div><b>Restore backup</b><span>Replaces current browser Hub data after confirmation.</span></div>
+        <button class="side-btn" id="sideImportAll" type="button">Import backup</button>
+      </div>
+      <div class="data-card neutral">
+        <div class="data-card-icon">⬡</div>
+        <div><b>Install Hub</b><span>Add Hub as a local app/PWA if your browser supports it.</span></div>
+        <button class="side-btn" id="sideInstallApp" type="button">Install app</button>
+      </div>
+    </div>
+
+    <div class="danger-zone">
+      <div><b>Danger zone</b><span>Reset removes Hub data from this browser and clears the shared local file. Requires 3-step verification. Export first.</span></div>
+      <button class="side-btn danger" id="sideResetAll" type="button">Reset local data</button>
+    </div>
+  </div>
+</aside>
+<input type="file" id="fullBackupInput" accept=".json,application/json" style="display:none">
+<main class="wrap" id="appMain" tabindex="-1">
+  <header>
+    <div class="logo">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12a2 2 0 0 1 2 2v15l-8-4-8 4V6a2 2 0 0 1 2-2z"/></svg></span>
+      <span>Hub</span>
+    </div>
+    <div class="clock"><div class="t" id="clk">--:--</div><div class="d" id="dat">Loading…</div></div>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" data-page="today">☀️ Today</div>
+    <div class="tab" data-page="dash">🔖 Portal & Bookmarks</div>
+    <div class="tab" data-page="idlehero">🧬 Idle Hero</div>
+    <div class="tab" data-page="chess">♟️ ChessLab</div>
+    <div class="tab" data-page="tamakee">🏛️ TAMAKEE Studio</div>
+    <div class="tab" data-page="ruview">🛰️ RuView</div>
+    <div class="tab" data-page="cal">📅 Calendar</div>
+    <div class="tab" data-page="tasks">✅ Tasks</div>
+    <div class="tab" data-page="notes">📝 Notes</div>
+    <div class="tab" data-page="ai">🤖 Marciale</div>
+    <div class="tab" data-page="track">⚡ Intake Tracker</div>
+    <div class="tab" data-page="vault">🔐 Vault</div>
+  </div>
+
+    <!-- ============ TODAY DASHBOARD ============ -->
+  <div class="page active" id="page-today">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom: 20px;">
+      <h2 style="margin:0;"><span>☀️ Today</span></h2>
+      <div id="tdyDateStr" style="color:var(--mut); font-weight:600;"></div>
+    </div>
+
+    <section class="today-glance-panel" id="todayGlancePanel">
+      <h2><span>Today at a glance</span><span class="line"></span></h2>
+      <div class="dash-widgets" id="dashWidgets"></div>
+    </section>
+    
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; align-items:start;">
+       <!-- Schedule & Deadlines -->
+       <div style="background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:16px;">
+             <h3 style="margin:0; color:var(--acc); font-size:15px;">📅 Next Up</h3>
+             <span id="tdyVaultLock" style="font-size:12px; color:var(--mut);"></span>
+          </div>
+          <div id="tdySchedule" style="display:flex; flex-direction:column; gap:8px;"></div>
+       </div>
+
+       <!-- Tasks -->
+       <div style="background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px;">
+          <h3 style="margin-top:0; color:var(--danger); font-size:15px; margin-bottom:16px;">🔥 Urgent Tasks</h3>
+          <div id="tdyTasks" style="display:flex; flex-direction:column; gap:8px;"></div>
+       </div>
+
+       <!-- LOCK IN -->
+       <div class="focus-session-card" id="focusSessionCard">
+          <div class="focus-session-head">
+             <div><h3>🎯 LOCK IN</h3><p>Time-box real work and feed your activity streak.</p></div>
+             <span id="focusSessionState">Idle</span>
+          </div>
+          <div id="focusSessionBody"></div>
+       </div>
+
+       <!-- Intake & Sleep -->
+       <div style="background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px;">
+          <h3 style="margin-top:0; color:var(--acc2); font-size:15px; margin-bottom:16px;">⚡ Energy & Sleep</h3>
+          <div id="tdyIntake" style="display:flex; flex-direction:column; gap:10px;"></div>
+       </div>
+
+       <!-- Quick Actions & Marciale -->
+       <div class="ask-marciale" style="background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px;">
+          <h3 style="margin-top:0; color:var(--txt); font-size:15px; margin-bottom:12px;">🤖 Ask Marciale</h3>
+          <input type="text" id="tdyAiInput" placeholder="Command Marciale..." style="width:100%; padding:12px; border-radius:8px; background:var(--bg); border:1px solid var(--line); color:var(--txt); outline:none; margin-bottom:16px; transition:0.2s; border-color:var(--line);">
+          
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+             <button class="btn sm" onclick="activatePage('tasks'); openTaskModal(null);">+ Task</button>
+             <button class="btn sm" onclick="activatePage('cal'); openEvent(null);">+ Event</button>
+             <button class="btn sm" onclick="activatePage('notes'); createNewNote();">📝 Note</button>
+             <button class="btn sm" onclick="activatePage('track'); $('#tQty').focus();">☕ Log</button>
+          </div>
+          <div id="tdyAgent" style="margin-top:16px;"></div>
+       </div>
+
+       <!-- High Council Live Observer Card (Build 47: Babysitter Pattern) -->
+       <div class="council-observer-card" id="councilObserverCard" style="background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px; box-shadow: 0 0 0 1px rgba(255,255,255,0.05), inset 0 0 0 1px rgba(0,0,0,0.3);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+             <h3 style="margin:0; color:var(--acc); font-size:15px; display:flex; align-items:center; gap:6px;">
+               <span class="council-liveness-dot" style="width:8px; height:8px; border-radius:50%; background:var(--good); box-shadow:0 0 8px var(--good); display:inline-block;"></span>
+               👑 Council Observer
+             </h3>
+             <span class="feature-badge" id="councilHealthBadge" style="background:rgba(0,184,148,0.15); color:var(--good); font-size:11px; padding:2px 8px; border-radius:999px;">🟢 SEV-0 Nominal</span>
+          </div>
+          <div id="councilObserverBody" style="display:flex; flex-direction:column; gap:8px;"></div>
+          <div style="display:flex; gap:6px; margin-top:12px;">
+             <button class="btn sm primary" style="flex:1;" onclick="openCommandPalette();">⌨️ Ctrl+K HUD</button>
+             <button class="btn sm" style="flex:1;" onclick="toast('🛡️ SRE Sentinel: 43/43 Passing (100% Green)','success'); window.playHubSound?.('chime');">🛡️ Sentinel Check</button>
+          </div>
+       </div>
+
+       <!-- Marciale Autopilot -->
+       <div class="autopilot-card" id="autopilotCard" style="display:none">
+          <div class="autopilot-head">
+             <div><h3>🛰️ Marciale Autopilot</h3><p>Visible, local-first supervision for the Marciale profile.</p></div>
+             <span id="autopilotStatus">Off</span>
+          </div>
+          <div class="autopilot-summary" id="autopilotSummary"></div>
+          <div class="autopilot-signal-list" id="autopilotSignals"></div>
+          <div class="autopilot-recent-log" id="autopilotRecentLog"></div>
+          <div class="autopilot-card-actions">
+             <button class="btn sm primary" id="autopilotCardRun" type="button">Run scan</button>
+             <button class="btn sm" id="autopilotCardPause" type="button">Pause 30m</button>
+             <button class="btn sm" id="autopilotCardOpenMarciale" type="button">Open Marciale</button>
+          </div>
+       </div>
+
+       <!-- Professional Alerts -->
+       <div class="professional-alert-card" id="professionalAlertCard" style="display:none">
+          <div class="professional-alert-head">
+             <div><h3>🧭 Professional Alert</h3><p>Proactive risks and planning gaps from your Hub context.</p></div>
+             <span id="professionalAlertCount">0</span>
+          </div>
+          <div class="professional-alert-list" id="professionalAlertList"></div>
+       </div>
+
+       <!-- Marciale Strategic Analysis -->
+       <div class="marciale-strategy-card" id="marcialeStrategyCard" style="display:none">
+          <div class="marciale-strategy-head">
+             <div><h3>🧠 Marciale Strategic Scan</h3><p>Long-range patterns, bottlenecks, and focus-state recommendations.</p></div>
+             <span id="marcialeStrategyStatus">Strategic</span>
+          </div>
+          <div class="marciale-strategy-grid" id="marcialeStrategyGrid"></div>
+          <div class="marciale-directive-grid" id="marcialeDirectiveGrid"></div>
+          <div class="marciale-strategy-actions">
+             <button class="btn sm primary" id="marcialeDraftScan" type="button">Draft deep analysis</button>
+             <button class="btn sm" id="marcialeGhostMode" type="button">Apply Ghost Mode</button>
+          </div>
+       </div>
+
+       <!-- Instructor Mode -->
+       <div class="instructor-card" id="instructorCard" style="display:none">
+          <div class="instructor-head">
+             <div><h3>🧨 Instructor Mode</h3><p>Strict accountability, safe in-Hub focus pressure.</p></div>
+             <span id="instructorStatus">Ready</span>
+          </div>
+          <div class="instructor-body" id="instructorBody"></div>
+          <div class="instructor-actions">
+             <button class="btn sm primary" id="instructorOpenFocus" type="button">Open focus overlay</button>
+             <button class="btn sm" id="instructorSnooze" type="button">Snooze 10m</button>
+          </div>
+       </div>
+
+       <!-- Presence Card -->
+       <div class="presence-card" id="presenceCard" style="display:none"></div>
+
+       <!-- Activity Heatmap -->
+       <div class="activity-card" id="activityCard">
+          <div class="activity-head">
+             <div><h3>🟩 Hub Activity</h3><p>Show up daily. Build momentum.</p></div>
+             <div class="activity-score" id="activityTodayScore">0 pts</div>
+          </div>
+          <div class="activity-stats" id="activityStats"></div>
+          <div class="activity-motivation" id="activityMotivation"></div>
+          <div class="activity-heatmap" id="activityHeatmap" aria-label="Hub activity heatmap"></div>
+          <div class="activity-legend"><span>Less</span><i data-lvl="0"></i><i data-lvl="1"></i><i data-lvl="2"></i><i data-lvl="3"></i><i data-lvl="4"></i><span>More</span></div>
+          <div class="activity-detail" id="activityDetail" aria-live="polite"></div>
+       </div>
+    </div>
+  </div>
+
+  <!-- ============ PORTAL PAGE ============ -->
+  <div class="page" id="page-dash">
+    <div class="searchbar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="Search bookmarks by name, url, tag…" autocomplete="off">
+    </div>
+
+
+    <h2><span>Portal — your tools</span><span class="line"></span><span class="mini" id="addSectionBtn">+ Section</span></h2>
+    <div id="portal"></div>
+
+    <h2 id="bmHeading"><span>Bookmarks</span> <span class="count" id="bmCount"></span><span class="line"></span></h2>
+    <div class="toolbar">
+      <div id="filters" style="display:flex;gap:10px;flex-wrap:wrap"></div>
+      <span class="spacer"></span>
+      <button class="btn" id="importBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>Import</button>
+      <button class="btn" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></svg>Export</button>
+      <button class="btn primary" id="addBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Add bookmark</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- ============ IDLE HERO PAGE ============ -->
+  <div class="page" id="page-idlehero">
+    <div class="idlehero-page-shell">
+      <div class="idlehero-page-head">
+        <div><h2>🧬 Idle Hero</h2><p>Full Momentum Companion webgame view inside TheHUB.</p></div>
+        <div class="idlehero-page-actions">
+          <button class="btn sm" id="idleHeroPageReload" type="button">Reload</button>
+          <button class="btn sm" id="idleHeroPageRetry" type="button">Retry rewards</button>
+          <button class="btn sm primary" onclick="activatePage('today')" type="button">Back to Today</button>
+        </div>
+      </div>
+      <div class="idlehero-page-frame-wrap" id="idleHeroPageFrameWrap"></div>
+    </div>
+  </div>
+
+  <!-- ============ CHESS LAB PAGE ============ -->
+  <div class="page" id="page-chess">
+    <div id="chessLabRoot"></div>
+  </div>
+
+  <!-- ============ TAMAKEE STUDIO PAGE ============ -->
+  <div class="page" id="page-tamakee">
+    <div id="tamakeeStudioRoot"></div>
+  </div>
+
+  <!-- ============ RUVIEW PAGE ============ -->
+  <div class="page" id="page-ruview">
+    <!-- Build 33.1: Connection Status Bar -->
+    <div id="ruviewStatusBar" class="ruview-status-bar" style="display:flex;align-items:center;gap:12px;padding:10px 16px;margin-bottom:12px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);flex-wrap:wrap">
+      <span id="ruviewStatusIcon" style="font-size:16px">🔄</span>
+      <div style="flex:1;min-width:200px">
+        <div id="ruviewStatusText" style="font-size:14px;font-weight:700">Checking RuView…</div>
+        <div id="ruviewStatusDetail" style="font-size:12px;color:var(--mut)">Connecting to sensing server…</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn sm" id="ruviewPerfModeBtn" type="button" title="Toggle 3D/2D mode">3D Mode</button>
+        <button class="btn sm" id="ruviewSuspendBtn" type="button" title="Suspend/resume feed">⏸ Suspend</button>
+        <button class="btn sm" id="ruviewReloadFrameBtn" type="button" title="Reload RuView">↻ Reload</button>
+        <button class="btn sm" id="ruviewCheckHealthBtn2" type="button" title="Re-check connection">🔍 Health</button>
+      </div>
+    </div>
+
+    <!-- Build 33.1: Main Iframe Container -->
+    <div id="ruview-frame-container" class="ruview-frame-container" style="position:relative;min-height:clamp(560px,calc(100vh - 290px),800px);border:1px solid var(--line);border-radius:var(--r);background:#0a0e14;overflow:hidden;box-shadow:var(--shadow-lg)">
+      <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--mut);font-size:14px">Loading RuView…</div>
+    </div>
+
+    <!-- Build 33.1: Automation & Settings (collapsible) -->
+    <details style="margin-top:16px;border:1px solid var(--line);border-radius:var(--r);background:var(--card)">
+      <summary style="padding:12px 16px;cursor:pointer;font-weight:700;font-size:14px;color:var(--txt)">⚡ Automation Rules & Settings</summary>
+      <div style="padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:start">
+        <!-- Automation Rules -->
+        <div style="border:1px solid var(--line);border-radius:var(--r);padding:14px">
+          <h3 style="margin:0 0 12px;font-size:14px;color:var(--acc)">⚡ Automation Rules</h3>
+          <div id="ruviewAutomationRules" style="display:flex;flex-direction:column;gap:8px;max-height:400px;overflow-y:auto"></div>
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn sm" id="automationResetRules" type="button">Reset to defaults</button>
+          </div>
+        </div>
+        <!-- Automation Log -->
+        <div style="border:1px solid var(--line);border-radius:var(--r);padding:14px">
+          <h3 style="margin:0 0 12px;font-size:14px;color:var(--mut)">📜 Automation Log</h3>
+          <div id="ruviewAutomationLog" style="display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto"></div>
+          <div style="margin-top:10px"><button class="btn sm" id="automationClearLog" type="button">Clear log</button></div>
+        </div>
+        <!-- Browser Presence (Fallback) -->
+        <div style="border:1px solid var(--line);border-radius:var(--r);padding:14px">
+          <h3 style="margin:0 0 12px;font-size:14px;color:var(--acc)">🖥️ Browser Presence</h3>
+          <div id="ruviewPresenceStatus" style="font-size:13px;line-height:1.5;color:var(--txt)">Loading…</div>
+          <div id="ruviewPresenceDetail" style="margin-top:8px;font-size:12px;color:var(--mut);line-height:1.5"></div>
+        </div>
+        <!-- Transition History -->
+        <div style="border:1px solid var(--line);border-radius:var(--r);padding:14px">
+          <h3 style="margin:0 0 12px;font-size:14px;color:var(--warn)">📋 Transition History</h3>
+          <div id="ruviewHistory" style="display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto"></div>
+        </div>
+        <!-- Presence Thresholds -->
+        <div style="border:1px solid var(--line);border-radius:var(--r);padding:14px">
+          <h3 style="margin:0 0 12px;font-size:14px;color:var(--acc2)">⏱️ Presence Thresholds</h3>
+          <div class="field" style="margin-bottom:8px"><label>Idle timeout (seconds)</label><input id="presenceIdleTimeout" type="number" min="30" max="3600" step="30" style="width:100%;padding:8px;border-radius:8px;background:var(--bg);border:1px solid var(--line);color:var(--txt)"></div>
+          <div class="field" style="margin-bottom:8px"><label>Away timeout (seconds)</label><input id="presenceAwayTimeout" type="number" min="60" max="7200" step="60" style="width:100%;padding:8px;border-radius:8px;background:var(--bg);border:1px solid var(--line);color:var(--txt)"></div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt);cursor:pointer"><input id="presenceTrackInput" type="checkbox" style="accent-color:var(--acc)"> Track mouse/keyboard</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt);cursor:pointer"><input id="presenceTrackVisibility" type="checkbox" style="accent-color:var(--acc)"> Track tab visibility</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt);cursor:pointer"><input id="presenceAwayLockVault" type="checkbox" style="accent-color:var(--acc)"> Auto-lock Vault</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt);cursor:pointer"><input id="presenceAwayPauseFocus" type="checkbox" style="accent-color:var(--acc)"> Pause LOCK IN</label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt);cursor:pointer"><input id="presenceWelcomeBack" type="checkbox" style="accent-color:var(--acc)"> Welcome-back toast</label>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn primary sm" id="presenceSaveSettings" type="button">Save</button>
+            <button class="btn sm" id="presenceResetSettings" type="button">Reset</button>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+    <!-- ============ CALENDAR PAGE ============ -->
+  <div class="page" id="page-cal">
+    <div class="cal-top">
+      <div class="cal-nav">
+        <button class="iconbtn" id="calPrev" title="Previous month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 18-6-6 6-6"/></svg></button>
+        <div class="cal-month" id="calMonth">Month</div>
+        <button class="iconbtn" id="calNext" title="Next month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg></button>
+        <button class="btn sm" id="calToday">Today</button>
+      </div>
+      <span class="spacer"></span>
+      <button class="btn" id="notifBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span id="notifLbl">Enable alerts</span></button>
+      <button class="btn" id="calImportIcs">📥 Import .ics</button>
+      <button class="btn" id="calExportIcs">📦 Export .ics</button>
+      <button class="btn" id="calToggleReadonly" title="Show/hide imported readonly events like Mapúa">👁 Readonly</button>
+      <button class="btn primary" id="evAdd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>New event</button>
+    </div>
+
+    <div class="cal-grid-head">
+      <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+
+    <h2><span>Upcoming</span><span class="line"></span><span class="mini" id="alertNote"></span></h2>
+    <div id="upcoming" class="up-list"></div>
+  </div>
+
+  
+  <!-- ============ TASKS PAGE ============ -->
+  <div class="page" id="page-tasks">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom: 20px;">
+      <h2 style="margin:0;"><span>Tasks & Kanban</span></h2>
+      <div class="toolbar" style="margin:0; flex-wrap:wrap; gap:6px;">
+        <button class="btn primary" onclick="window.openTaskModal(null)">+ New Task</button>
+      </div>
+    </div>
+    
+    <div class="project-dashboard" id="projectDashboard"></div>
+    <div id="kanbanBoard" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; align-items:start;">
+      <!-- columns injected here -->
+    </div>
+  </div>
+
+  <!-- ============ NOTES PAGE ============ -->
+    <div class="page" id="page-notes">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <h2 style="margin:0;"><span>Note Library</span></h2>
+      <div style="font-size:12px;color:var(--mut);">Markdown powered. Preview is sanitized.</div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 240px 1fr; gap: 14px; margin-top: 14px; align-items:start;">
+      <!-- Note List Sidebar -->
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <button class="btn primary" onclick="createNewNote()">+ New Note</button>
+        <div id="noteList" style="display:flex; flex-direction:column; gap:4px; max-height:65vh; overflow-y:auto; padding-right:4px;"></div>
+      </div>
+      
+      <!-- Note Editor -->
+      <div id="noteEditorContainer" style="display:none; flex-direction:column; gap:10px;">
+        <div style="display:flex; gap:10px;">
+           <input type="text" id="noteTitle" placeholder="Note Title..." style="flex:1; padding:12px 14px; background:var(--card); border:1px solid transparent; border-radius:var(--r); color:var(--txt); font-size:16px; font-weight:600; outline:none; transition:.2s ease;">
+           <input type="text" id="noteProject" placeholder="Project" list="taskProjectList" style="width:180px; padding:12px 14px; background:var(--card); border:1px solid transparent; border-radius:var(--r); color:var(--txt); font-size:13px; font-weight:600; outline:none; transition:.2s ease;">
+           <button class="btn sm" onclick="deleteCurrentNote()" style="color:var(--danger)">🗑️ Delete Note</button>
+        </div>
+        
+        <div class="toolbar" style="margin:0; flex-wrap:wrap; gap:6px;">
+          <button class="btn sm" onclick="mdHeading(2)"><b>H2</b></button>
+          <button class="btn sm" onclick="mdHeading(3)"><b>H3</b></button>
+          <button class="btn sm" onclick="mdWrap('**','**')"><b>B</b></button>
+          <button class="btn sm" onclick="mdWrap('*','*')"><i>I</i></button>
+          <button class="btn sm" onclick="mdWrap('~~','~~')"><s>S</s></button>
+          <button class="btn sm" onclick="mdList('- ')">• List</button>
+          <button class="btn sm" onclick="mdList('1. ')">1. List</button>
+          <button class="btn sm" onclick="mdLink()">🔗 Link</button>
+          <button class="btn sm" onclick="mdImage()">📷 Image</button>
+        </div>
+        
+        <div class="notes-md-wrap" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:stretch">
+          <textarea id="notesEditor" spellcheck="true" placeholder="Start typing Markdown here..." style="background:var(--card); border:1px solid transparent; border-radius:var(--r); padding:20px; height:55vh; outline:none; color:var(--txt); line-height:1.6; resize:vertical; font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; transition:.2s ease;"></textarea>
+          <div id="notesPreview" style="background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:20px; height:55vh; overflow:auto; color:var(--txt); line-height:1.65;"></div>
+        </div>
+      </div>
+      <div id="noteEmptyState" style="padding:40px; text-align:center; color:var(--mut); background:var(--card); border-radius:var(--r);">
+        Select a note or create a new one.
+      </div>
+    </div>
+  </div>
+
+  
+<!-- ============ TASK OVERLAY ============ -->
+<div class="overlay" id="taskOverlay">
+  <div class="modal">
+    <h3 style="margin-bottom:16px">Task Details</h3>
+    <input type="hidden" id="taskEditId">
+    <div class="field"><label>Title</label><input id="taskTitle" type="text" placeholder="Task name" autocomplete="off"></div>
+    <div style="display:flex; gap:12px;">
+      <div class="field flex1"><label>Status</label>
+        <select id="taskStatus">
+          <option value="todo">To Do</option>
+          <option value="in_progress">In Progress</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+      <div class="field flex1"><label>Priority</label>
+        <select id="taskPriority">
+          <option value="high">High</option>
+          <option value="normal" selected>Normal</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex; gap:12px;">
+      <div class="field flex1"><label>Project</label><input id="taskProject" type="text" placeholder="General" autocomplete="off" list="taskProjectList"><datalist id="taskProjectList"></datalist></div>
+      <div class="field flex1"><label>Due Date</label><input id="taskDue" type="date"></div>
+    </div>
+    <div class="field"><label>Estimate (e.g. 2h)</label><input id="taskEstimate" type="text" placeholder="Optional" autocomplete="off"></div>
+    <div class="field"><label>Notes</label><textarea id="taskNotes" style="min-height:80px;"></textarea></div>
+    
+    <div class="row">
+      <button class="btn" id="taskDeleteBtn" style="color:var(--danger); display:none;" onclick="deleteTask()">Delete</button>
+      <button class="btn" onclick="document.getElementById('taskOverlay').classList.remove('show')">Cancel</button>
+      <button class="btn primary" onclick="saveTask()">Save Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ASSISTANT PAGE ============ -->
+  <div class="page grok-ai-page" id="page-ai">
+    <div class="grok-ai-layout">
+      <aside class="ai-thread-sidebar" aria-label="Marciale chat sessions">
+        <div class="ai-thread-brand">
+          <div class="ai-thread-mark">M</div>
+          <div><b>Marciale</b><span>Local AI workspace</span></div>
+        </div>
+        <button class="btn primary ai-new-chat" onclick="newChatSession()">＋ New chat</button>
+        <label class="ai-side-label" for="aiSessionSelect">Current chat</label>
+        <select id="aiSessionSelect" onchange="switchChatSession(this.value)"></select>
+        <div class="ai-thread-actions">
+          <button class="btn sm" onclick="renameChatSession()" title="Rename Chat">✏️ Rename</button>
+          <button class="btn sm danger-text" onclick="deleteChatSession()" title="Delete Chat">🗑️ Delete</button>
+        </div>
+        <div class="ai-side-divider"></div>
+        <div class="ai-history-block">
+          <div class="ai-side-section-title">Chat history</div>
+          <div class="ai-chat-history" id="aiChatHistory"></div>
+        </div>
+        <div class="ai-workspace-block">
+          <div class="ai-workspace-head"><span>Workspace</span><button class="iconbtn" id="aiWorkspaceAdd" title="Add file to workspace">＋</button></div>
+          <div class="ai-workspace-list" id="aiWorkspaceList"></div>
+          <div class="ai-side-note">Attach a workspace file to let Marciale reference it in the next prompt.</div>
+        </div>
+      </aside>
+
+      <section class="grok-ai-main" aria-label="Marciale chat workspace">
+        <div class="ai-bar grok-ai-topbar" style="flex-wrap:wrap; gap:8px;">
+          <div class="ai-status grok-status"><span class="dot-conn" id="ollDot"></span><span id="ollStat">Checking Ollama…</span></div>
+          <span class="spacer"></span>
+          <label class="ai-lbl">Model</label>
+          <select id="aiModel" class="ai-model"></select>
+          <button class="btn sm" id="aiRefresh" title="Re-check Ollama">↻</button>
+          <button class="btn sm" id="aiSettings" title="Connection settings">⚙️</button>
+        </div>
+
+        <div class="chat grok-chat" id="chat" aria-label="Marciale conversation"></div>
+
+        <div id="aiAttachBadge" style="display:none; margin-top:14px; margin-bottom:-6px; padding:8px 12px; background:var(--bg2); border:1px solid var(--line); border-radius:8px; font-size:12px; color:var(--acc2); align-items:center; justify-content:space-between;">
+          <span id="aiAttachName" style="font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">📄 document.txt</span>
+          <button class="btn sm" onclick="clearAiAttachment()" style="padding:4px 8px; min-height:0; color:var(--danger); border:none; background:transparent;">✖ Remove</button>
+        </div>
+        <div class="ai-department-chips" id="aiDeptChips" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;margin-bottom:6px;">
+          <button class="btn sm" type="button" data-dept-chip="scout" title="Ask Scout to research tools, open-source repos, or feasibility">🔭 Ask Scout</button>
+          <button class="btn sm" type="button" data-dept-chip="pm" title="Ask Project Manager to plan and break down tasks">📋 Ask PM</button>
+          <button class="btn sm" type="button" data-dept-chip="uiux" title="Ask UI/UX for design specs and accessibility guidelines">🎨 Ask UI/UX</button>
+          <button class="btn sm" type="button" data-dept-chip="web" title="Dispatch Web Engineering Team for implementation">💻 Web Team</button>
+          <button class="btn sm" type="button" data-dept-chip="mapua" title="Ask Mapúa Architecture Socratic Coach">🏛️ Mapúa Coach</button>
+          <button class="btn sm" type="button" data-dept-chip="sre" title="Run SRE fault and vulnerability audit">🚨 SRE Health</button>
+        </div>
+        <div class="ai-input grok-composer">
+          <button class="btn" id="aiAttachBtn" title="Upload Document" style="height:48px; width:48px; padding:0; justify-content:center; background:var(--card); border:1px solid var(--line); color:var(--txt);">📎</button>
+          <input type="file" id="aiAttachFile" style="display:none" accept=".txt,.md,.csv,.json,.html,.js,.py,.css,.log">
+          <textarea id="aiText" rows="1" placeholder="Ask Marciale anything…"></textarea>
+          <button class="btn primary" id="aiSend" title="Send (Enter)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></svg></button>
+        </div>
+        <div class="ai-hint" id="aiHint">Marciale runs on your local Ollama models. Tool actions follow your approval settings.</div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ TRACKER PAGE ============ -->
+  <div class="page" id="page-track">
+    <h2><span>Today</span><span class="line"></span></h2>
+    <div class="stats tracker-radial-stats" id="todayStats"></div>
+
+    <div class="tracker-quick-panel" id="quickDrinkPanel">
+      <div class="tracker-quick-head">
+        <div><h3>⚡ Quick Add</h3><p>Tap a drink tile to log one serving for right now. Sleep warnings still apply.</p></div>
+        <span id="quickDrinkStatus">Ready</span>
+      </div>
+      <div class="quick-drink-tiles" id="quickDrinkTiles"></div>
+    </div>
+
+    <div class="stat-panel bio-panel" id="bioPanel" style="margin-bottom:20px; background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px;">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+        <h3 style="font-size:14px; color:var(--mut); margin:0;">🧬 Biometric Intake Estimates</h3>
+        <span class="spacer"></span>
+        <button class="btn sm" id="bioReset" type="button">Reset profile</button>
+        <button class="btn sm primary" id="bioSave" type="button">Save profile</button>
+      </div>
+      <div class="bio-grid">
+        <label><span>Age</span><input id="bioAge" type="number" min="10" max="100" placeholder="20"></label>
+        <label><span>Sex</span><select id="bioSex"><option value="unspecified">Unspecified</option><option value="male">Male</option><option value="female">Female</option></select></label>
+        <label><span>Weight kg</span><input id="bioWeight" type="number" min="25" max="250" step="0.1" placeholder="70"></label>
+        <label><span>Height cm</span><input id="bioHeight" type="number" min="100" max="240" step="0.1" placeholder="170"></label>
+        <label><span>Activity</span><select id="bioActivity"><option value="sedentary">Sedentary</option><option value="light">Light</option><option value="moderate">Moderate</option><option value="active">Active</option><option value="very_active">Very active</option></select></label>
+        <label><span>Caffeine sensitivity</span><select id="bioCafSensitivity"><option value="high">High</option><option value="normal">Normal</option><option value="low">Low</option></select></label>
+      </div>
+      <div class="bio-estimates" id="bioEstimates">Generic intake limits active. Add optional metrics for personalized estimates.</div>
+      <div class="side-note">Evidence-informed estimates only, not medical advice. Stored locally in Hub data. Generic limits remain the fallback.</div>
+    </div>
+
+    <div class="stat-panel" id="sleepPanel" style="margin-bottom:20px; background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px;">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+        <h3 style="font-size:14px; color:var(--mut); margin:0;">💤 Sleep Readiness Predictor</h3>
+        <span class="spacer"></span>
+        <label style="font-size:12px;color:var(--mut)">Threshold <input id="sleepThreshold" type="number" min="0" max="200" step="5" style="width:76px;margin-left:6px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#242424;color:var(--txt)"> mg</label>
+        <label style="font-size:12px;color:var(--mut)">Bedtime <input id="sleepBedtime" type="time" style="width:106px;margin-left:6px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#242424;color:var(--txt)"></label>
+      </div>
+      <div id="sleepStatus" style="font-size:15px;margin-bottom:8px"></div>
+      <div id="sleepForecast" style="font-size:13px;color:var(--mut);line-height:1.5"></div>
+    </div>
+
+    <div class="stat-panel" style="margin-bottom:20px; background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:18px;">
+       <h3 style="font-size:14px; margin-bottom:12px; color:var(--mut);">Today's Intra-Day Caffeine Stack (Half-Life Simulator)</h3>
+       <svg id="intraDayChart" viewBox="0 0 800 240" style="width:100%; height:auto; display:block; overflow:visible;"></svg>
+    </div>
+
+    <div class="logrow">
+      <div class="field flex1"><label>Drink</label>
+        <select id="tDrink"></select>
+      </div>
+      <div class="field"><label>Quantity</label><input id="tQty" type="number" min="1" value="1" step="1"></div>
+      <div class="field"><label>Date</label><input id="tDate" type="date"></div>
+      <div class="field"><label>Time</label><input id="tTime" type="time"></div>
+      <button class="btn primary" id="tAdd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Log it</button>
+    </div>
+    <div style="display:flex; gap:8px; margin-top:-10px; margin-bottom:20px; flex-wrap:wrap;">
+      <button class="btn sm" id="tNow">Now</button>
+      <button class="btn sm" id="tMinus30">30 min ago</button>
+      <button class="btn sm" id="tMinus60">1 hour ago</button>
+      <button class="btn sm" id="tDup">Duplicate previous</button>
+    </div>
+
+    <div class="chartbox">
+      <div class="chead">
+        <span class="ct" id="chartTitle">Last 14 days</span>
+        <div class="seg" id="rangeSeg">
+          <button data-r="7">7d</button>
+          <button data-r="14" class="active">14d</button>
+          <button data-r="30">30d</button>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--warn)"></i>Caffeine (mg)</span>
+          <span><i style="background:var(--acc)"></i>Taurine (mg)</span>
+        </div>
+      </div>
+      <svg class="chart" id="chart" viewBox="0 0 800 320" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+
+    <h2><span>Log history</span><span class="line"></span><span class="mini" id="exportLogBtn">Export CSV</span></h2>
+    <table class="logtable" id="logTable"><thead><tr><th>Date</th><th>Time</th><th>Drink</th><th>Qty</th><th>Caffeine</th><th>Taurine</th><th>Sugar</th><th></th></tr></thead><tbody></tbody></table>
+  </div>
+
+  <!-- ============ VAULT PAGE ============ -->
+  <div class="page" id="page-vault">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+      <h2 style="margin:0"><span>Secure Vault</span><span class="line"></span></h2>
+      <span class="spacer"></span>
+      <button class="btn sm" id="vaultLockBtn" style="display:none">Lock vault</button>
+      <button class="btn primary" id="vaultAddBtn" style="display:none">+ Add website/account</button>
+    </div>
+    <div class="vault-warning"><b>Important:</b> this vault is encrypted locally with your master password before saving to browser storage. It is safer than plain localStorage, but it is not a substitute for a dedicated password manager. The Assistant can only search vault metadata while unlocked and never receives saved passwords.</div>
+    <div id="vaultLocked" class="vault-panel">
+      <h3 style="margin-bottom:10px">🔐 Unlock encrypted vault</h3>
+      <div class="field"><label>Master password</label><input id="vaultPass" type="password" autocomplete="current-password" placeholder="Enter master password"></div>
+      <div class="row"><button class="btn primary" id="vaultUnlockBtn">Unlock / Create vault</button></div>
+      <div class="side-note">If this is your first time, entering a master password creates the vault. If you forget it, encrypted vault contents cannot be recovered.</div>
+    </div>
+    <div id="vaultUnlocked" style="display:none">
+      <div class="vault-panel" style="margin-bottom:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <label style="font-size:12px;color:var(--mut)">Auto-lock <select id="vaultAutoLock" style="margin-left:6px;background:#242424;color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:6px"><option value="1">1 min</option><option value="5">5 min</option><option value="15">15 min</option><option value="30">30 min</option><option value="0">Never</option></select></label>
+        <label style="font-size:12px;color:var(--mut)"><input id="vaultAllowAi" type="checkbox" style="accent-color:var(--acc);margin-right:6px">Allow Assistant to search vault metadata while unlocked</label>
+        <span class="side-note">Passwords are never sent to the Assistant.</span>
+      </div>
+      <div class="vault-shell">
+        <div class="vault-panel">
+          <div class="searchbar" style="margin-bottom:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="vaultSearch" placeholder="Search websites/accounts…"></div>
+          <div class="vault-list" id="vaultSites"></div>
+        </div>
+        <div class="vault-panel" id="vaultDetail"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div id="footLine">💾 Saved in this browser. Use <b>Export</b> to back up.</div>
+    <div id="cloudNote">Local-first data in this browser. · <a href="#" id="resetLink" style="color:var(--mut)">Reset data</a></div>
+  </footer>
+</main>
+
+<!-- Bookmark modal is generated dynamically by modules/03-bookmarks.js. -->
+
+<!-- Portal tile and section modals are generated dynamically by modules/02-portal.js. -->
+
+<!-- Event modal -->
+<div class="overlay" id="eOverlay">
+  <div class="modal">
+    <h3 id="eModalTitle">New event</h3>
+    <input type="hidden" id="eEditId">
+    <div class="field"><label>Title</label><input id="eTitle" placeholder="e.g. Submit RVT model"></div>
+    <div class="two">
+      <div class="field"><label>Type</label>
+        <select id="eType"><option value="deadline">🚩 Deadline</option><option value="event">📌 Event</option></select>
+      </div>
+      <div class="field"><label>Date</label><input id="eDate" type="date"></div>
+    </div>
+    <div class="two">
+      <div class="field"><label>Priority</label><select id="ePriority"><option value="normal">Normal</option><option value="high">High</option><option value="low">Low</option></select></div>
+      <div class="field"><label>Repeat</label><select id="eRecur"><option value="">No repeat</option><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select></div>
+    </div>
+    <div class="two">
+      <div class="field" id="eTimeWrap"><label>Time (optional)</label><input id="eTime" type="time"></div>
+      <div class="field"><label>Remind me</label>
+        <select id="eRemind">
+          <option value="2,0">2 days before + day-of</option>
+          <option value="2">2 days before</option>
+          <option value="1">1 day before</option>
+          <option value="0">On the day</option>
+          <option value="">No reminder</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><label>Project</label><input id="eProject" type="text" placeholder="General" list="taskProjectList" autocomplete="off"></div>
+    <div class="field"><label>Notes (optional)</label><textarea id="eNotes" placeholder="Details…"></textarea></div>
+    <div class="field"><label>Color</label><div class="swatch" id="eSwatch"></div></div>
+    <div class="row">
+      <button class="btn" id="eIcs" style="display:none">📥 Add to Calendar (.ics)</button>
+      <button class="btn" id="eDelete" style="display:none;color:var(--danger)">Delete</button>
+      <button class="btn" id="eCancel">Cancel</button>
+      <button class="btn primary" id="eSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Assistant connection modal is generated dynamically by modules/08-assistant.js. -->
+
+<!-- Vault modal -->
+<div class="overlay" id="vOverlay">
+  <div class="modal">
+    <h3 id="vModalTitle">Vault entry</h3>
+    <input type="hidden" id="vSiteId"><input type="hidden" id="vAccountId">
+    <div class="two">
+      <div class="field"><label>Website / Service</label><input id="vSiteName" placeholder="e.g. Google"></div>
+      <div class="field"><label>Website URL</label><input id="vSiteUrl" placeholder="https://accounts.google.com"></div>
+    </div>
+    <div class="field"><label>Account label</label><input id="vLabel" placeholder="e.g. Personal Gmail"></div>
+    <div class="two">
+      <div class="field"><label>Email</label><input id="vEmail" autocomplete="off" placeholder="name@example.com"></div>
+      <div class="field"><label>Username</label><input id="vUsername" autocomplete="off" placeholder="username"></div>
+    </div>
+    <div class="field"><label>Password</label><input id="vPassword" type="password" autocomplete="new-password" placeholder="Password"><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn sm" id="vTogglePw">Show/hide password</button><button class="btn sm" id="vGeneratePw">Generate strong password</button></div></div>
+    <div class="field"><label>Notes</label><textarea id="vNotes" placeholder="Recovery info, security questions hints, etc. Avoid storing 2FA backup codes here unless necessary."></textarea></div>
+    <div class="row">
+      <button class="btn" id="vDelete" style="display:none;color:var(--danger)">Delete</button>
+      <button class="btn" id="vCancel">Cancel</button>
+      <button class="btn primary" id="vSave">Save encrypted</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="fileInput" accept=".json,.html" style="display:none">
+<input type="file" id="icsInput" accept=".ics,text/calendar" style="display:none">
+<div class="overlay" id="cmdOverlay">
+  <div class="modal" style="max-width: 600px; padding: 16px; background: var(--card);">
+    <input type="text" id="cmdInput" placeholder="Search Hub (Pages, Commands, Bookmarks)..." style="width:100%; padding:14px; font-size:18px; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--txt); outline:none;">
+    <div id="cmdResults" style="margin-top: 12px; max-height: 350px; overflow-y: auto; display:flex; flex-direction:column; gap:4px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="tip" id="tip"></div>
+
+<script src="modules/00-storage.js"></script>
+<script src="modules/00-utils-config.js"></script>
+<script src="modules/01-migrations.js"></script>
+<script src="modules/02-portal.js"></script>
+<script src="modules/03-bookmarks.js"></script>
+<script src="modules/04-tracker.js"></script>
+<script src="modules/05-calendar.js"></script>
+<script src="modules/06-notebook.js"></script>
+<script src="modules/07-vault.js"></script>
+<script src="modules/08-assistant.js"></script>
+<script src="modules/10-command-palette.js"></script>
+<script src="modules/11-tasks.js"></script>
+<script src="modules/12-today.js"></script>
+<script src="modules/13-experimental.js"></script>
+<script src="modules/14-companion.js"></script>
+<script src="modules/15a-chess-lib.js"></script>
+<script src="modules/15-chess.js"></script>
+<script src="modules/16-hubframe.js"></script>
+<script src="modules/17-presence.js"></script>
+<script src="modules/18-ruview-bridge.js"></script>
+<script src="modules/19-presence-automation.js"></script>
+<script src="modules/ruview/ruview-frame.js"></script>
+<script src="TAMAplugin/mapua-brain-preset.js"></script>
+<script src="TAMAplugin/exam-calendar-card.js"></script>
+<script src="TAMAplugin/study-momentum-bridge.js"></script>
+<script src="TAMAplugin/tamakee-studio-view.js"></script>
+<script src="TAMAplugin/tama-plugin-init.js"></script>
+<script src="modules/09-main.js"></script>
+</body>
+</html>

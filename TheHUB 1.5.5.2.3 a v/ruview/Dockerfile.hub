@@ -1,0 +1,21 @@
+# TheHUB Local Server Container
+# Build 33.0 — Docker Integration
+#
+# Lightweight Python container that serves TheHUB and proxies RuView requests.
+
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy the entire Hub project
+COPY . /app/
+
+# No additional dependencies needed — server.py uses only stdlib
+EXPOSE 8000
+
+ENV PYTHONUNBUFFERED=1
+ENV HUB_PORT=8000
+ENV HUB_HOST=0.0.0.0
+ENV RUVIEW_URL=http://ruview:3000
+
+CMD ["python3", "server.py"]

@@ -1,0 +1,234 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: var(--font-size-md);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+#game-container {
+  position: relative;
+  width: var(--mode-full-width);
+  height: var(--mode-full-height);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+#ui-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#hud {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+  z-index: 20;
+  font-size: var(--font-size-sm);
+}
+
+.hud-left, .hud-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hud-gold {
+  color: var(--color-rudeus-accent);
+  font-weight: bold;
+}
+
+.hud-zone {
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+}
+
+.hud-fps {
+  font-size: 9px;
+  color: #616780;
+  text-align: right;
+}
+
+.hud-assets {
+  margin-top: 2px;
+  font-size: 8px;
+  color: #616780;
+  text-align: right;
+}
+
+#save-controls {
+  position: absolute;
+  bottom: 22px;
+  left: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  font: 8px monospace;
+  color: #9da3b8;
+}
+
+#save-status[data-type="success"] { color: #8aba8a; }
+#save-status[data-type="error"] { color: #e06c75; }
+
+#save-now {
+  border: 1px solid #616780;
+  padding: 2px 5px;
+  background: #252936;
+  color: #e8eaf0;
+  font: inherit;
+  cursor: pointer;
+}
+
+#save-now:hover, #save-now:focus-visible { background: #3a4155; outline: 1px solid #d4a034; }
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(10, 12, 18, 0.72);
+  pointer-events: auto;
+}
+
+.game-modal {
+  width: min(320px, 100%);
+  border: 1px solid #616780;
+  padding: 14px;
+  background: #1a1c23;
+  color: #e8eaf0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.game-modal h2 { margin-bottom: 8px; font-size: 15px; color: #d4a034; }
+.modal-body { font-size: 12px; color: #c5cad8; }
+.modal-body p + p { margin-top: 7px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 6px; margin-top: 14px; }
+.modal-actions button { border: 1px solid #616780; padding: 5px 8px; background: #252936; color: #e8eaf0; cursor: pointer; font: 11px system-ui, sans-serif; }
+.modal-actions .modal-primary { border-color: #b88b2d; background: #6a4a12; }
+.modal-actions .modal-danger { border-color: #b85a5a; background: #642b2b; }
+
+#version-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  opacity: 0.6;
+  z-index: 30;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 3px;
+}
+
+/* ── Build 57 P1: ScreenManager window shell (Quests modal | full) ───────── */
+.screen-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(10, 12, 18, 0.72);
+  pointer-events: auto;
+}
+.screen-modal > h2,
+.screen-full > h2 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: var(--text-accent);
+}
+.screen-modal .screen-body,
+.screen-full .screen-body {
+  font-size: 12px;
+  color: #c5cad8;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.screen-modal .screen-body {
+  background: var(--bg-panel);
+  border: 1px solid #616780;
+  padding: var(--panel-padding);
+  width: min(320px, 100%);
+}
+.screen-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 14px;
+}
+.screen-actions button {
+  border: 1px solid #616780;
+  padding: 5px 8px;
+  background: #252936;
+  color: var(--text-primary);
+  cursor: pointer;
+  font: 11px system-ui, sans-serif;
+}
+.screen-actions .screen-toggle {
+  border-color: #4a9ad9;
+  color: #9ecbff;
+}
+.screen-actions .screen-close {
+  border-color: #b88b2d;
+  background: #6a4a12;
+}
+
+/* Full panel: fills the companion canvas area */
+.screen-full {
+  position: absolute;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  background: var(--bg-panel);
+  border: 1px solid var(--bg-tertiary);
+  color: var(--text-primary);
+  pointer-events: auto;
+}
+.screen-full .screen-body {
+  flex: 1;
+  background: var(--bg-secondary);
+  border: 1px solid var(--bg-tertiary);
+  padding: var(--panel-padding);
+}

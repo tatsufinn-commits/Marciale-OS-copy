@@ -1,0 +1,43 @@
+{
+  "comment": "Stat affix pools for item generation. Filtered by slot and rarity.",
+  "schemaVersion": "1.0",
+  "affixes": {
+    "offensive": [
+      { "id": "flat_attack", "name": "Attack Damage", "stat": "attackDamage", "type": "flat", "min": 1, "max": 15 },
+      { "id": "attack_speed", "name": "Attack Speed", "stat": "attackSpeed", "type": "percent", "min": 2, "max": 20 },
+      { "id": "crit_chance", "name": "Critical Chance", "stat": "critChance", "type": "flat", "min": 1, "max": 10, "unit": "percent" },
+      { "id": "crit_damage", "name": "Critical Damage", "stat": "critDamage", "type": "percent", "min": 5, "max": 50 },
+      { "id": "water_damage", "name": "Water Damage", "stat": "waterDamage", "type": "percent", "min": 5, "max": 30 },
+      { "id": "fire_damage", "name": "Fire Damage", "stat": "fireDamage", "type": "percent", "min": 5, "max": 30 }
+    ],
+    "defensive": [
+      { "id": "flat_hp", "name": "Health", "stat": "maxHp", "type": "flat", "min": 5, "max": 100 },
+      { "id": "flat_armor", "name": "Armor", "stat": "armor", "type": "flat", "min": 1, "max": 20 },
+      { "id": "dodge", "name": "Dodge Chance", "stat": "dodge", "type": "flat", "min": 1, "max": 8, "unit": "percent" },
+      { "id": "all_resistance", "name": "All Resistance", "stat": "allResistance", "type": "percent", "min": 3, "max": 25 }
+    ],
+    "utility": [
+      { "id": "gold_find", "name": "Gold Find", "stat": "goldFind", "type": "percent", "min": 5, "max": 50 },
+      { "id": "xp_boost", "name": "Experience Boost", "stat": "xpBoost", "type": "percent", "min": 3, "max": 25 },
+      { "id": "mana_regen", "name": "Mana Regeneration", "stat": "manaRegen", "type": "flat", "min": 1, "max": 10 },
+      { "id": "affinity_gain", "name": "Affinity Gain", "stat": "affinityGain", "type": "percent", "min": 5, "max": 25 }
+    ]
+  },
+  "slotRestrictions": {
+    "weapon": ["offensive"],
+    "offhand": ["offensive", "defensive"],
+    "head": ["defensive", "utility"],
+    "body": ["defensive"],
+    "hands": ["offensive", "utility"],
+    "feet": ["defensive", "utility"],
+    "accessory": ["offensive", "defensive", "utility"]
+  },
+  "rarityLimits": {
+    "common": { "maxAffixes": 0 },
+    "uncommon": { "maxAffixes": 1, "allowedPools": ["offensive", "defensive"] },
+    "magic": { "maxAffixes": 2, "allowedPools": ["offensive", "defensive", "utility"] },
+    "rare": { "maxAffixes": 3, "allowedPools": ["offensive", "defensive", "utility"] },
+    "legendary": { "maxAffixes": 4, "allowedPools": ["offensive", "defensive", "utility"] },
+    "immortal": { "maxAffixes": 5, "allowedPools": ["offensive", "defensive", "utility"] }
+  }
+}

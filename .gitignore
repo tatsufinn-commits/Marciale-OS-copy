@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs & caches
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# Python caches and local files
+__pycache__/
+*.py[cod]
+*.tmp
+*.log
+hub-data.json.tmp
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

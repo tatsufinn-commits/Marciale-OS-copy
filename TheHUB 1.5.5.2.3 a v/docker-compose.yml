@@ -1,0 +1,58 @@
+# TheHUB + RuView Docker Compose
+# Build 33.0 — RuView Service Foundation
+#
+# Usage:
+#   docker-compose up -d           # Start both TheHUB and RuView in background
+#   docker-compose up hub          # Start only TheHUB
+#   docker-compose up ruview       # Start only RuView (simulation mode)
+#   docker-compose down            # Stop all services
+#
+# After startup:
+#   TheHUB:  http://127.0.0.1:8000
+#   RuView:  http://127.0.0.1:3000 (direct) or http://127.0.0.1:8000/ruview-proxy/ (proxied)
+
+version: '3.8'
+
+services:
+  # ── RuView Sensing Server ──────────────────────────────────────────────
+  # Runs with SIMULATION_MODE=true so no ESP32 hardware is needed.
+  # Provides: UI dashboard, WebSocket sensing stream, REST API.
+  ruview:
+    image: ruvnet/wifi-densepose:latest
+    container_name: thehub-ruview
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+      - "8765:8765"
+    restart: unless-stopped
+    environment:
+      - SIMULATION_MODE=true
+      - CSI_SOURCE=simulated
+      - RUVIEW_ALLOW_UNAUTHENTICATED=1
+      - RUVIEW_BIND_ADDR=0.0.0.0
+    networks:
+      - thehub-net
+
+  # ── TheHUB Local Server ────────────────────────────────────────────────
+  # Serves the Hub UI and proxies RuView requests to solve CORS.
+  hub:
+    build:
+      context: .
+      dockerfile: ruview/Dockerfile.hub
+    container_name: thehub-hub
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    environment:
+      - HUB_PORT=8000
+      - HUB_HOST=0.0.0.0
+      - RUVIEW_URL=http://ruview:3000
+      - RUVIEW_WS_URL=ws://ruview:3001
+    depends_on:
+      - ruview
+    networks:
+      - thehub-net
+
+networks:
+  thehub-net:
+    driver: bridge

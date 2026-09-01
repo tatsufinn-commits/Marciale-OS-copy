@@ -1,0 +1,16 @@
+{
+  "name": "thehub-1.5.5.2.3av",
+  "version": "1.5.5.2.3-alpha",
+  "description": "Hub is a local-first personal dashboard with:",
+  "main": "cloud-snippet.js",
+  "scripts": {
+    "test": "node tests/smoke.js && node tests/unit.js && node tests/unit-storage.js && node tests/unit-hub.js && node tests/unit-calendar.js && node tests/unit-tracker.js && node tests/unit-chess.js && node tests/unit-presence.js && node tests/unit-ruview.js && node tests/unit-postmessage-origin.js && node tests/unit-presence-automation.js && python3 tests/unit-ruview-proxy.py && node tests/app-smoke.js",
+    "check": "node tests/smoke.js && node tests/unit.js && node tests/unit-storage.js && node tests/unit-hub.js && node tests/unit-calendar.js && node tests/unit-tracker.js && node tests/unit-chess.js && node tests/unit-presence.js && node tests/unit-ruview.js && node tests/unit-presence-automation.js && python3 tests/unit-ruview-proxy.py && node tests/app-smoke.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsdom": "^29.1.1"
+  }
+}

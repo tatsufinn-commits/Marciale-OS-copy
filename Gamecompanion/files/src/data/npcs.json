@@ -1,0 +1,79 @@
+{
+  "comment": "NPC definitions — quest givers, vendors, story characters.",
+  "schemaVersion": "1.0",
+  "npcs": [
+    {
+      "id": "paul", "name": "Paul Greyrat", "role": "Rudeus's father", "location": "fittoa",
+      "personality": "Rugged, gruff but caring", "sprite": "paul_32x48.png",
+      "questsOffered": ["paul_sword_lesson"],
+      "faction": "adventurersGuild"
+    },
+    {
+      "id": "ghislaine", "name": "Ghislaine Dedorudia", "role": "Sword King, teacher", "location": "fittoa",
+      "personality": "Gentle despite intimidating appearance", "sprite": "ghislaine_40x52.png",
+      "questsOffered": ["sword_style_intro"],
+      "faction": "adventurersGuild"
+    },
+    {
+      "id": "cliff", "name": "Cliff Grimoire", "role": "Academy friend, mage", "location": "ranoa",
+      "personality": "Earnest, devout, brilliant", "sprite": "cliff_32x48.png",
+      "questsOffered": ["magic_research_assist"],
+      "faction": "magicCorps"
+    },
+    {
+      "id": "ariel", "name": "Princess Ariel", "role": "Asuran princess in exile", "location": "ranoa",
+      "personality": "Regal, composed, calculating", "sprite": "ariel_32x48.png",
+      "questsOffered": ["protect_the_princess"],
+      "faction": "asuraRoyalists"
+    },
+    {
+      "id": "elinalise", "name": "Elinalise Dragonroad", "role": "Former adventurer, guide", "location": "begaritt",
+      "personality": "Flirtatious, experienced, maternal", "sprite": "elinalise_32x48.png",
+      "questsOffered": ["labyrinth_guide"],
+      "faction": "adventurersGuild"
+    },
+    {
+      "id": "badigadi", "name": "Badigadi", "role": "Demon King", "location": "demon",
+      "personality": "Laid-back immortal, surprisingly friendly", "sprite": "badigadi_56x56.png",
+      "questsOffered": ["demon_king_favor"],
+      "faction": "demonLords"
+    },
+    {
+      "id": "sauros", "name": "Sauros Boreas Greyrat", "role": "Lord of Fittoa", "location": "fittoa",
+      "personality": "Gruff, old-school noble", "sprite": "sauros_32x48.png",
+      "questsOffered": [],
+      "faction": "asuraRoyalists"
+    },
+    {
+      "id": "philip", "name": "Philip Boreas Greyrat", "role": "Eris's father", "location": "fittoa",
+      "personality": "Calm, pragmatic diplomat", "sprite": "philip_32x48.png",
+      "questsOffered": [],
+      "faction": "asuraRoyalists"
+    },
+    {
+      "id": "zenith", "name": "Zenith Greyrat", "role": "Rudeus's mother", "location": "fittoa",
+      "personality": "Kind, gentle (later catatonic)", "sprite": "zenith_32x48.png",
+      "questsOffered": [],
+      "faction": null
+    },
+    {
+      "id": "lilia", "name": "Lilia", "role": "Greyrat family maid", "location": "fittoa",
+      "personality": "Stern, loyal, efficient", "sprite": "lilia_32x48.png",
+      "questsOffered": [],
+      "faction": null
+    },
+    {
+      "id": "perugius", "name": "Perugius Dola", "role": "Armored Dragon King", "location": "special",
+      "personality": "Ancient, powerful, wary", "sprite": "perugius_32x48.png",
+      "questsOffered": ["chaos_breaker_trial"],
+      "faction": "magicCorps"
+    },
+    {
+      "id": "hitogami", "name": "Hitogami", "role": "The Man-God", "location": "dream",
+      "personality": "Pleasant, unsettling, manipulative", "sprite": "hitogami_48x64.png",
+      "questsOffered": [],
+      "faction": null,
+      "isHidden": true
+    }
+  ]
+}

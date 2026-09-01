@@ -1,0 +1,40 @@
+{
+  "comment": "Quest definitions — main story, side, daily, and personal quests.",
+  "schemaVersion": "1.0",
+  "dailyTemplates": [
+    { "id": "rift_purge", "name": "Rift Purge", "objective": "Defeat 50 Riftspawn", "rewards": { "gold": 500, "xp": 1000, "dust": 25 } },
+    { "id": "material_run", "name": "Material Run", "objective": "Shatter 10 items", "rewards": { "gold": 300, "xp": 500, "dust": 50 } },
+    { "id": "chest_collector", "name": "Chest Collector", "objective": "Open 5 chests", "rewards": { "gold": 400, "xp": 750, "dust": 10 } },
+    { "id": "boss_practice", "name": "Boss Practice", "objective": "Defeat any zone boss", "rewards": { "gold": 1000, "xp": 2000, "dust": 100 } },
+    { "id": "guild_task", "name": "Guild Task", "objective": "Complete a delivery quest", "rewards": { "gold": 200, "xp": 300, "dust": 15 } }
+  ],
+  "weeklyChallenges": [
+    { "id": "aether_storm", "name": "Aether Storm", "modifier": "enemies +25% damage, +50% loot", "objective": "Clear 10 stages", "rewards": { "fragments": 1, "legendaryChance": 0.5 } },
+    { "id": "fragile_weave", "name": "Fragile Weave", "modifier": "party HP halved, gold doubled", "objective": "Clear 5 stages without deaths", "rewards": { "shards": 5, "respecToken": 1 } },
+    { "id": "elemental_fury", "name": "Elemental Fury", "modifier": "elemental damage +50%, healing -50%", "objective": "Defeat zone boss on Storm+", "rewards": { "petEgg": 1 } }
+  ],
+  "personalQuests": {
+    "rudeus": [
+      { "chapter": 1, "name": "A Second Chance", "objective": "Learn basic magic", "rewards": { "xp": 100, "skillPoint": 1 } },
+      { "chapter": 2, "name": "The Demon Continent", "objective": "Survive 10 waves", "rewards": { "xp": 500, "gold": 200 } },
+      { "chapter": 3, "name": "Dead End", "objective": "Form the party", "rewards": { "xp": 1000, "unlock": "ruijerd" } },
+      { "chapter": 4, "name": "The Man in the Forest", "objective": "Survive Orsted's attack", "rewards": { "xp": 2000, "title": "The Survivor" } },
+      { "chapter": 5, "name": "The Oath", "objective": "Swear to protect family", "rewards": { "signatureItem": "greyrat_signet_ring" } }
+    ]
+  },
+  "factionQuests": [
+    { "id": "adventurer_rank_up", "name": "Adventurer's Trial", "faction": "adventurersGuild", "objectives": ["Clear 3 stages", "Defeat 100 monsters", "Earn 1000 gold"], "rewards": { "reputation": 100, "gold": 500 } }
+  ],
+  "achievements": [
+    { "id": "first_stage", "name": "First Steps", "condition": "Clear stage 1-1", "rewards": { "gold": 100 } },
+    { "id": "first_boss", "name": "Bane of the Thorn Warden", "condition": "Defeat the Thorn Warden", "rewards": { "title": "Rift Cleanser" } },
+    { "id": "dead_end", "name": "Dead End", "condition": "Complete the Demon Continent arc", "rewards": { "gold": 1000 } },
+    { "id": "family_reunion", "name": "Family Reunion", "condition": "Rescue Zenith", "rewards": { "title": "Loyal Son" } },
+    { "id": "academy_graduate", "name": "Academy Graduate", "condition": "Complete the Academy arc", "rewards": { "skillPoint": 3 } },
+    { "id": "the_three_wives", "name": "The Greyrat Household", "condition": "Marry all three wives", "rewards": { "title": "Family Man" } },
+    { "id": "dragon_slayer", "name": "Dragon's Ally", "condition": "Complete the Asura arc", "rewards": { "title": "Orsted's Equal" } },
+    { "id": "max_level", "name": "Peak Human", "condition": "Reach level 100", "rewards": { "title": "Legendary Weaver" } },
+    { "id": "collector", "name": "Echo Seeker", "condition": "Collect all Echoes", "rewards": { "title": "Historian" } },
+    { "id": "perfectionist", "name": "True Weaver", "condition": "Unlock all achievements", "rewards": { "title": "Complete Life" } }
+  ]
+}

@@ -1,0 +1,2 @@
+/** Build 16 exposes zone/stage content from existing zone JSON without hardcoded UI lists. */
+export class ZoneContentSystem { constructor({zones=[]}={}){this.zones=new Map(zones.map(z=>[z.id,z]));} getZone(id){return this.zones.get(id)??null;} getStages(zoneId){const zone=this.getZone(zoneId);if(!zone)return[];return Array.from({length:zone.stages},(_,i)=>({id:`${zoneId}-${i+1}`,number:i+1,unlocked:zoneId==='fittoa'&&i===0,boss:zone.boss?.stage===i+1}));} getBackground(zoneId){return this.getZone(zoneId)?.bgColors??null;} }

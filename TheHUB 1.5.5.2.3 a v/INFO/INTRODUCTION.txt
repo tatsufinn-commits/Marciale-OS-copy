@@ -1,0 +1,37 @@
+INTRODUCTION
+
+TheHUB is a private, local-first personal command center that runs on your own computer. It combines a Today dashboard, portal/bookmark manager, calendar, Kanban tasks, project planning, Markdown notes, intake tracker, encrypted vault, activity streak system, local AI assistant, and optional experimental companion systems into one customizable workspace.
+
+TheHUB is built around speed, privacy, and control. It runs locally at http://127.0.0.1:8000, stores Hub data in browser localStorage, and uses an IndexedDB storage foundation for larger payloads such as note bodies, assistant workspace documents, restore point payloads, and archived activity. When launched through the Python server, it can sync data across browser profiles through a local hub-data.json file. Private data files such as hub-data.json and bookmarks.json should not be committed or included in public release packages.
+
+The main pages are Today, Portal & Bookmarks, Idle Hero, ChessLab, RuView, Calendar, Tasks, Notes, Marciale, Intake Tracker, and Vault. Idle Hero is the full Momentum Companion webgame view. ChessLab and RuView are prepared Category C pages for later optional systems.
+
+The Today Dashboard is the main operating surface. It shows upcoming events and deadlines, urgent tasks, LOCK INs, energy and sleep readiness, Marciale suggestions, Marciale Autopilot, Professional Alerts, safe Instructor Mode prompts, Marciale Strategic Scan insights, and the Hub Activity Heatmap.
+
+The Hub Activity Heatmap is a GitHub-style 365-day streak graph for productivity. It records meaningful local actions such as completed tasks, completed LOCK IN sessions, note creation/editing, intake logs, calendar additions, bookmarks, and approved Marciale actions. Recent activity remains fast in localStorage, while older activity can be archived by month through the IndexedDB payload layer. The Heatmap includes streak counts, daily point totals, clickable day details, filters, settings, and subtle celebration feedback for showing up consistently.
+
+The Momentum Companion / Idle Hero system is the first optional Category C companion layer. It is powered by real Hub Activity. The mini Momentum Companion lives inside the right side of the Hub Activity card through companion-mini/index.html. The full Idle Hero webgame lives on the Idle Hero page through companion/index.html. The built Idle Hero app comes from https://github.com/alexis-labs/idle-hero.git and is embedded locally inside TheHUB. Hub Activity can reward Idle Hero through a postMessage bridge, and Idle Hero can acknowledge rewards back to TheHUB. Idle Hero gameplay does not create main Hub productivity points by default, so the Heatmap stays honest.
+
+The task system uses a Kanban board with To Do, In Progress, and Done columns. Calendar deadlines can appear in a deadline dropbox and be converted directly into tasks. Task cards support due dates, priorities, projects, estimates, notes, overdue states, focus sessions, and activity logging when work is completed. Project Mode adds project cards, progress, filtering, linked tasks/events/notes, project details, and project pre-mortem prompts.
+
+The calendar supports events, deadlines, priorities, reminders, recurrence, upcoming lists, .ics import/export, project linking, and optional Mapúa/Blackboard calendar feed support through the MAPUA_ICS_URL environment variable. Native .ics export is recommended for critical reminders because browser notifications only work while the app/browser is running.
+
+The Markdown notebook provides multiple notes with live sanitized preview, formatting controls, rendered code blocks, project linking, and activity logging. Notes now store metadata separately from note bodies so larger note text can live in the IndexedDB payload layer. The intake tracker logs caffeine, taurine, and sugar by exact date/time, estimates active caffeine using half-life math, forecasts sleep readiness, supports optional biometric estimates, and shows radial intake/sleep cards plus quick-add drink tiles.
+
+The Information Center stores local non-secret user context such as lifestyle, school, habits, routines, energy patterns, constraints, and planning preferences so Marciale can plan around the user more accurately. It is optional and should not contain secrets; passwords and sensitive credentials belong in the encrypted Vault.
+
+Marciale is TheHUB’s local AI assistant powered by Ollama. It supports multiple chat sessions, local workspace documents, IndexedDB-backed workspace document storage, safe website text fetching, local memory search, native tool calling, editable approval cards, and direct Hub actions such as adding tasks, events, bookmarks, notes, and intake logs. Marciale never receives vault passwords; it can only search vault metadata when explicitly allowed.
+
+The AI Resource Governor helps keep local Ollama usage practical. It provides model presets, keep-alive control, context budget, separate daily/Autopilot/Strategic model selectors, loaded model status, model tier warnings, Autopilot cooldowns, and an unload-model helper. The goal is to keep small models as defaults and use large models deliberately.
+
+Marciale includes a profile system. Balanced is the default assistant. Assistant is a more competent general-purpose mode. Professional scans Hub context for urgent planning risks and can show proactive in-Hub alerts. Instructor is an aggressive but safe accountability mode with a dismissible in-Hub focus overlay and typed acknowledgement. Marciale mode is a philosophical/strategic analyst that looks for deeper productivity patterns, project bottlenecks, cognitive rhythms, and safe Ghost Mode recommendations.
+
+The Marciale Brain system lets the user manage memories, skills, prefix/suffix instructions, profiles, previews, and hygiene tools. It can scan for duplicates and secret-like text, normalize bullet lists, and draft cleanup prompts. TheHUB warns before saving possible secrets to the brain; secrets should be stored only in the encrypted Vault.
+
+The encrypted Vault uses local AES-GCM encryption behind a master password for account data. It is safer than plain localStorage, but it is not a full replacement for a dedicated password manager. Vault passwords are never sent to Marciale.
+
+The Hub Control Center contains navigation, appearance controls, theme presets, UI optimizer settings, Activity Heatmap settings, AI Resource Governor controls, desktop notification controls, assistant permissions, Marciale Autopilot tuning, keyboard shortcuts, Marciale brain/profile tools, command templates, Projects, Experimental Systems, data backup/restore, debug logs, install/PWA support, and a safer Danger Zone. Resetting local Hub data requires three-step verification: confirm, type RESET, then type DELETE HUB DATA.
+
+The UI has been modernized with a shadcn-inspired design system, a Grok-inspired Marciale workspace, responsive layouts, improved accessibility, keyboard shortcuts, command palette search, collapsible searchable settings, mobile-friendly navigation, and optional Category C companion integrations.
+
+In short, TheHUB is a fast, private, local-first operating center for daily planning, project execution, personal knowledge, deadlines, energy tracking, activity streaks, encrypted account organization, local AI assistance, and optional productivity-powered companion systems.

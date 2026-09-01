@@ -1,0 +1,33 @@
+You are a senior implementer on a greenfield local-first project. You have never seen this product before. Do not search for similar products. Do not invent a GitHub org. Do not assume a public repo exists.
+
+PROJECT CODENAME: Kestrel Desk
+COMPANION: Idle Finch (canvas idle loop inside an iframe)
+
+HARD CONSTRAINTS (violating any = fail the test):
+1. Vanilla JavaScript ES modules only. NO React, Vue, Svelte, Next, Nuxt, Angular.
+2. NO new npm UI libraries. NO Tailwind. NO CSS-in-JS. NO component kits.
+3. Styling: one style.css using CSS custom properties only. Dark cockpit. You must define:
+   --ks-bg, --ks-surface, --ks-text, --ks-muted, --ks-accent, --ks-gold
+   Body text must be light-on-dark and keyboard-focusable (visible :focus-visible rings).
+4. Python 3 stdlib HTTP server on port 8000 (server.py). CORS for same-origin iframe only. No Express/Flask/FastAPI required.
+5. Split the shell into numbered modules, at least:
+   00-storage.js  (localStorage wrapper + try/catch quota)
+   08-notes.js    (simple list)
+   11-errands.js  (journal list: title, done flag)
+   14-finch.js    (iframe embed + postMessage)
+6. Idle Finch: one HTML canvas file, 60fps when visible, 5fps when document.hidden. No game engine library.
+7. Window modes for Errands ONLY: "modal" (default overlay) and "full" (fills the main pane). A tiny ScreenManager object: open/close/setMode. Do not build Inventory, Settings, Shop, or a generic window OS.
+8. Tests: node:test (or a single tests/errands.test.js runnable with `node --test`). Cover: ScreenManager modal/full/close; storage get/set; respec-like guard: a function refuseRespecIfBusy({fighting, cooldown}) returns {ok:false, reason:'BUSY'} without mutating a provided state object.
+9. Deliver: file tree + full file contents. Then a 8-line beginner note. Then a short "what I refused to add and why."
+10. If you want a dependency, you must STOP and ask. Do not silently add it.
+11. Do not mention any existing personal-OS, hub, or council product. This is original work.
+
+ACCEPTANCE (we will grade):
+- Opens as static files + python3 server.py
+- Errands toggles modal <-> full without losing the list
+- Hidden tab drops Finch to ~5fps (code must show the throttle)
+- Tests pass
+- Zero React/Tailwind/npm UI
+- You did not scaffold a landing page, hero blobs, or e-commerce
+
+Begin. Implement Phase 1 only. Do not expand scope.

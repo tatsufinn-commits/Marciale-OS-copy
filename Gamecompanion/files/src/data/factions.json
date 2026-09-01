@@ -1,0 +1,50 @@
+{
+  "comment": "Faction and reputation definitions.",
+  "schemaVersion": "1.0",
+  "factions": [
+    {
+      "id": "adventurersGuild",
+      "name": "Adventurer's Guild",
+      "description": "The continent-spanning guild that manages quests and ranks adventurers.",
+      "ranks": [
+        { "id": "initiate", "name": "Initiate", "repRequired": 0, "discount": 0.0 },
+        { "id": "bronze", "name": "Bronze", "repRequired": 200, "discount": 0.05 },
+        { "id": "silver", "name": "Silver", "repRequired": 500, "discount": 0.1 },
+        { "id": "gold", "name": "Gold", "repRequired": 1000, "discount": 0.15, "uniqueItem": "guild_master_blade" },
+        { "id": "mithril", "name": "Mithril", "repRequired": 2000, "discount": 0.2, "uniqueSkill": "guild_mastery" }
+      ]
+    },
+    {
+      "id": "magicCorps",
+      "name": "Magic Corps",
+      "description": "The magical research and defense organization based at Ranoa.",
+      "ranks": [
+        { "id": "initiate", "name": "Scholar", "repRequired": 0, "discount": 0.0 },
+        { "id": "bronze", "name": "Researcher", "repRequired": 250, "discount": 0.05 },
+        { "id": "silver", "name": "Senior Researcher", "repRequired": 600, "discount": 0.1 },
+        { "id": "gold", "name": "Archmage", "repRequired": 1200, "discount": 0.15, "uniqueItem": "archmage_staff" }
+      ]
+    },
+    {
+      "id": "asuraRoyalists",
+      "name": "Asuran Royalists",
+      "description": "Supporters of Princess Ariel's claim to the Asuran throne.",
+      "ranks": [
+        { "id": "initiate", "name": "Sympathizer", "repRequired": 0 },
+        { "id": "bronze", "name": "Ally", "repRequired": 300 },
+        { "id": "silver", "name": "Trusted Ally", "repRequired": 700 },
+        { "id": "gold", "name": "Knight of Asura", "repRequired": 1500, "uniqueTitle": "Knight of Asura" }
+      ]
+    },
+    {
+      "id": "demonLords",
+      "name": "Demon Lords",
+      "description": "The loose alliance of Demon Kings ruling the Demon Continent.",
+      "ranks": [
+        { "id": "visitor", "name": "Visitor", "repRequired": 0 },
+        { "id": "bronze", "name": "Honored Guest", "repRequired": 400 },
+        { "id": "silver", "name": "Demon Friend", "repRequired": 900, "uniqueItem": "demonic_contract" }
+      ]
+    }
+  ]
+}

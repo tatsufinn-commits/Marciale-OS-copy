@@ -1,0 +1,41 @@
+{
+  "name": "marciale-os",
+  "version": "1.5.5-v0.3.0",
+  "private": true,
+  "description": "Marciale-OS: TheHUB personal command center + Companion RPG unified workspace",
+  "scripts": {
+    "test": "npm --prefix \"TheHUB 1.5.5.2.3 a v\" test && npm --prefix \"Gamecompanion/files\" test",
+    "test:hub": "npm --prefix \"TheHUB 1.5.5.2.3 a v\" test",
+    "test:companion": "npm --prefix \"Gamecompanion/files\" test",
+    "status": "node tools/quick-status.js",
+    "health": "node tools/sre-fault-scanner.js",
+    "sre:scan": "node tools/sre-fault-scanner.js",
+    "pangolin": "node tools/sre-auto-sentinel.js",
+    "merge:gate": "node tools/merge-gate.js",
+    "sentinel:check": "node tools/sre-auto-sentinel.js",
+    "plate:check": "node tools/plate-validator.js",
+    "scout": "node tools/scout-audit.js",
+    "audit:wcag": "node tools/qa-wcag-audit.js",
+    "audit:bridge": "node tools/bridge-contract-verify.js",
+    "audit:governance": "node tools/governance-audit.js",
+    "audit:all": "node tools/scout-audit.js && node tools/qa-wcag-audit.js && node tools/bridge-contract-verify.js && node tools/governance-audit.js && node tools/scout-voice-check.js",
+    "start": "cd \"TheHUB 1.5.5.2.3 a v\" && python3 server.py",
+    "build": "npm --prefix \"Gamecompanion/files\" run build",
+    "build:companion": "npm --prefix \"Gamecompanion/files\" run build",
+    "dev": "npm --prefix \"Gamecompanion/files\" run dev",
+    "dev:companion": "npm --prefix \"Gamecompanion/files\" run dev",
+    "install:all": "npm --prefix \"TheHUB 1.5.5.2.3 a v\" install && npm --prefix \"Gamecompanion/files\" install",
+    "hooks:install": "node tools/install-git-hooks.js",
+    "audit:scoutvoice": "node tools/scout-voice-check.js"
+  },
+  "keywords": [
+    "personal-os",
+    "dashboard",
+    "local-first",
+    "productivity",
+    "companion-rpg",
+    "chess"
+  ],
+  "author": "Tatsufinn",
+  "license": "ISC"
+}

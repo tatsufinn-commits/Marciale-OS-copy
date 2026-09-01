@@ -1,0 +1,77 @@
+:root {
+  /* === MT-Inspired Color Palette === */
+
+  /* Backgrounds */
+  --bg-primary: #1a1c23;
+  --bg-secondary: #242731;
+  --bg-tertiary: #2e323f;
+  --bg-panel: #1e2128;
+  --bg-hover: #353a4a;
+
+  /* Text */
+  --text-primary: #e8eaf0;
+  --text-secondary: #9da3b8;
+  --text-muted: #616780;
+  --text-accent: #d4a034;
+
+  /* Character Colors - Hair & Theme */
+  --color-rudeus-hair: #b8963c;
+  --color-rudeus-accent: #1a2a4a;
+  --color-sylphy-hair: #8aba8a;
+  --color-sylphy-accent: #6a9aba;
+  --color-roxy-hair: #8abaf0;
+  --color-roxy-accent: #4a3a6a;
+  --color-eris-hair: #cc2222;
+  --color-eris-accent: #5a1010;
+  --color-zanoba-hair: #2a2a2a;
+  --color-zanoba-accent: #1a2a4a;
+  --color-orsted-hair: #e0e0e0;
+  --color-orsted-accent: #1a1a2a;
+
+  /* Magic Schools */
+  --magic-water: #4a9af0;
+  --magic-earth: #8a6a3a;
+  --magic-fire: #d44a2a;
+  --magic-wind: #6ac8c0;
+  --magic-healing: #4ad44a;
+  --magic-dark: #5a2a8a;
+  --magic-barrier: #d4a034;
+
+  /* Rarity Colors */
+  --rarity-common: #e4e4e4;
+  --rarity-uncommon: #54fc0c;
+  --rarity-magic: #2f8bfc;
+  --rarity-rare: #b40cfc;
+  --rarity-legendary: #fc9c0c;
+  --rarity-immortal: #fc2424;
+
+  /* UI States */
+  --success: #4ad94a;
+  --warning: #d9c44a;
+  --danger: #d94a4a;
+  --info: #4a9ad9;
+
+  /* Affinity */
+  --affinity-strained: #d94a4a;
+  --affinity-neutral: #9da3b8;
+  --affinity-comfortable: #4ad9c4;
+  --affinity-trusted: #4a9ad9;
+  --affinity-bonded: #d4a034;
+
+  /* Spacing & Sizing */
+  --border-radius: 4px;
+  --panel-padding: 12px;
+  --font-size-xs: 9px;
+  --font-size-sm: 11px;
+  --font-size-md: 13px;
+  --font-size-lg: 16px;
+  --font-size-xl: 20px;
+
+  /* Mode Sizes */
+  --mode-mini-width: 180px;
+  --mode-mini-height: 60px;
+  --mode-compact-width: 320px;
+  --mode-compact-height: 120px;
+  --mode-full-width: 600px;
+  --mode-full-height: 400px;
+}

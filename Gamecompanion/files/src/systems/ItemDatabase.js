@@ -1,0 +1,2 @@
+/** Build 17 query layer over the canonical JSON item database and weighted loot tables. */
+export class ItemDatabase { constructor({items=[]}={}){this.items=items;this.byId=new Map(items.map(i=>[i.id,i]));} get(id){return this.byId.get(id)??null;} query({slot=null,rarity=null}={}){return this.items.filter(i=>(!slot||i.slot===slot)&&(!rarity||i.rarity===rarity));} roll({rarity='common',rng=Math.random}={}){const pool=this.query({rarity});return pool[Math.floor(rng()*pool.length)]??null;} }

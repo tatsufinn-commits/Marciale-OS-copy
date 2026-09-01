@@ -1,0 +1,5 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { LootEngine } from '../src/systems/LootEngine.js';
+class State { constructor() { this.data = { player: { gold: 0 }, combat: { chests: [] }, rewards: { recent: [] } }; } get(path) { return structuredClone(path.split('.').reduce((o,k) => o[k], this.data)); } update(path, fn) { const keys=path.split('.'); const last=keys.pop(); let t=this.data; keys.forEach(k=>t=t[k]); t[last]=fn(t[last]); } }
+test('monster gold is granted and stage chest opens into a reward', () => { const state=new State(); const events=[]; const loot=new LootEngine({ stateManager:state,eventBus:{emit:(...a)=>events.push(a)},events:{GOLD_CHANGED:'gold',CHEST_DROPPED:'drop',CHEST_OPENED:'open'},items:[{id:'staff',name:'Staff',rarity:'common'}],rng:()=>0.7 }); loot.onMonsterKilled({gold:5}); const chest=loot.dropStageChest('fittoa-1'); const reward=loot.openChest(chest.id); assert.equal(state.data.player.gold,5); assert.equal(reward.itemId,'staff'); assert.equal(state.data.rewards.recent.length,1); assert.ok(events.some(([e])=>e==='open')); });
